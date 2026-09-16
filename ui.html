@@ -1,736 +1,1846 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
+
   <style>
     * {
       box-sizing: border-box;
     }
 
-    :root {
-      --bg: #f7f7f8;
-      --panel: #ffffff;
-      --panel-2: #fbfbfc;
-      --text: #1f2328;
-      --subtext: #6b7280;
-      --border: #e5e7eb;
-      --border-strong: #d1d5db;
-      --brand: #1677ff;
-      --brand-hover: #0f67df;
-      --danger: #d14343;
-      --success: #1f9d62;
-      --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-sm: 8px;
-    }
-
+    html,
     body {
       margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+
       font-family:
         Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-      background: var(--bg);
-      color: var(--text);
+
       font-size: 12px;
     }
 
+
+    /* =========================================================
+       THEME
+       ========================================================= */
+
+    body[data-theme="light"] {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f8;
+      --surface: #ffffff;
+      --surface-hover: #f4f4f5;
+
+      --text: #171719;
+      --text-secondary: #73737c;
+      --text-tertiary: #9b9ba3;
+
+      --border: #e3e3e7;
+      --border-hover: #c9c9cf;
+
+      --input-bg: #ffffff;
+
+      --accent: #1877f2;
+      --accent-hover: #0969da;
+
+      --success-bg: #eef9f3;
+      --success: #18864b;
+
+      --error-bg: #fff1f1;
+      --error: #d74343;
+
+      --shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+
+    body[data-theme="dark"] {
+      --bg: #202124;
+      --bg-secondary: #292a2e;
+      --surface: #25262a;
+      --surface-hover: #303136;
+
+      --text: #f3f3f4;
+      --text-secondary: #a6a6ae;
+      --text-tertiary: #797981;
+
+      --border: #3b3c41;
+      --border-hover: #55565d;
+
+      --input-bg: #292a2e;
+
+      --accent: #3b82f6;
+      --accent-hover: #5794f8;
+
+      --success-bg: #183528;
+      --success: #66d99a;
+
+      --error-bg: #3c2426;
+      --error: #ff7b7b;
+
+      --shadow:
+        0 6px 20px rgba(0, 0, 0, 0.28);
+    }
+
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+    }
+
+
+    button,
+    input {
+      font: inherit;
+    }
+
+
+    button {
+      color: inherit;
+    }
+
+
+    /* =========================================================
+       APP
+       ========================================================= */
+
     .app {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      width: 100%;
+      padding: 12px;
     }
 
-    /* Header */
-    .header {
-      background: linear-gradient(180deg, #23252a 0%, #1d1f24 100%);
-      color: #fff;
-      padding: 14px 16px 12px;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
-    }
 
-    .header-top {
+    /* =========================================================
+       TOP
+       ========================================================= */
+
+    .topbar {
+      height: 28px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+
+      margin-bottom: 9px;
+
+      position: relative;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+
+    .title {
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 700;
+
+      letter-spacing: -0.2px;
     }
 
-    .brand-badge {
-      width: 24px;
-      height: 24px;
+
+    .settings-button {
+      width: 28px;
+      height: 28px;
+
+      border: 0;
       border-radius: 7px;
-      background: linear-gradient(135deg, #1677ff, #5ba0ff);
+
+      padding: 0;
+
+      background: transparent;
+      color: var(--text-secondary);
+
+      cursor: pointer;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 12px;
-      font-weight: 800;
-      box-shadow: 0 4px 10px rgba(22, 119, 255, 0.35);
+
+      transition: background 0.12s ease;
     }
 
-    .brand-text-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+
+    .settings-button:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
     }
 
-    .brand-title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.02em;
+
+    .settings-button svg {
+      width: 15px;
+      height: 15px;
     }
 
-    .brand-subtitle {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.72);
-      line-height: 1.2;
-    }
 
-    .close-btn {
-      width: 28px;
-      height: 28px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.9);
-      cursor: pointer;
-      font-size: 16px;
-      line-height: 1;
-    }
+    /* =========================================================
+       SETTINGS POPOVER
+       ========================================================= */
 
-    .close-btn:hover {
-      background: rgba(255,255,255,0.14);
-    }
+    .settings-popover {
+      display: none;
 
-    /* Body */
-    .content {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+      position: absolute;
+      top: 33px;
+      right: 0;
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
+      width: 190px;
 
-    .stat-card {
-      background: var(--panel);
+      padding: 10px;
+
+      background: var(--surface);
+
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 8px;
-      text-align: center;
+      border-radius: 10px;
+
       box-shadow: var(--shadow);
+
+      z-index: 100;
     }
 
-    .stat-value {
-      font-size: 16px;
+
+    .settings-popover.open {
+      display: block;
+    }
+
+
+    .settings-title {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 2px;
+
+      margin-bottom: 8px;
     }
 
-    .stat-label {
-      color: var(--subtext);
-      font-size: 10px;
-      letter-spacing: 0.02em;
-    }
 
-    /* Tabs */
-    .tabs {
+    .settings-row {
       display: flex;
-      gap: 6px;
-      background: #eceef1;
-      border-radius: 12px;
-      padding: 4px;
+      align-items: center;
+      justify-content: space-between;
+
+      min-height: 30px;
     }
 
-    .tab-btn {
-      flex: 1;
-      height: 34px;
-      border: none;
-      border-radius: 9px;
+
+    .settings-row + .settings-row {
+      margin-top: 6px;
+    }
+
+
+    .settings-label {
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+
+    .mini-segment {
+      display: flex;
+
+      padding: 2px;
+
+      border-radius: 7px;
+
+      background: var(--bg-secondary);
+    }
+
+
+    .mini-option {
+      border: 0;
+
+      height: 25px;
+
+      min-width: 45px;
+
+      padding: 0 8px;
+
+      border-radius: 5px;
+
       background: transparent;
-      color: #6b7280;
+      color: var(--text-secondary);
+
+      font-size: 10px;
       font-weight: 600;
+
       cursor: pointer;
-      transition: all 0.16s ease;
     }
 
-    .tab-btn.active {
-      background: #fff;
-      color: #111827;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+
+    .mini-option.active {
+      background: var(--surface);
+      color: var(--text);
+
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.10);
     }
+
+
+    /* =========================================================
+       SELECTION SUMMARY
+       ========================================================= */
+
+    .selection-summary {
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 7px;
+
+      padding: 0 9px;
+
+      margin-bottom: 8px;
+
+      background: var(--bg-secondary);
+
+      border-radius: 7px;
+
+      color: var(--text-secondary);
+
+      font-size: 10px;
+    }
+
+
+    .summary-item {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+
+    .summary-value {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+
+    .summary-divider {
+      width: 1px;
+      height: 11px;
+
+      background: var(--border);
+    }
+
+
+    /* =========================================================
+       TABS
+       ========================================================= */
+
+    .tabs {
+      height: 34px;
+
+      padding: 3px;
+
+      display: flex;
+
+      margin-bottom: 9px;
+
+      background: var(--bg-secondary);
+
+      border-radius: 8px;
+    }
+
+
+    .tab {
+      flex: 1;
+
+      border: 0;
+      border-radius: 6px;
+
+      background: transparent;
+      color: var(--text-secondary);
+
+      cursor: pointer;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      transition:
+        background 0.12s ease,
+        color 0.12s ease;
+    }
+
+
+    .tab.active {
+      background: var(--surface);
+      color: var(--text);
+
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       PANEL
+       ========================================================= */
 
     .panel {
       display: none;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      box-shadow: var(--shadow);
     }
+
 
     .panel.active {
       display: block;
     }
 
+
+    .panel-header {
+      margin-bottom: 10px;
+    }
+
+
     .panel-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
+
+      margin-bottom: 2px;
     }
 
-    .panel-desc {
-      color: var(--subtext);
-      line-height: 1.45;
-      margin-bottom: 14px;
-      font-size: 11px;
+
+    .panel-description {
+      font-size: 10px;
+      line-height: 1.4;
+
+      color: var(--text-secondary);
     }
 
-    .section {
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-2);
-      margin-bottom: 12px;
+
+    /* =========================================================
+       COLOR FIELD
+       ========================================================= */
+
+    .field-group {
+      margin-bottom: 9px;
     }
 
-    .section:last-child {
-      margin-bottom: 0;
-    }
 
-    .label {
+    .field-label {
       display: block;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #374151;
+
+      margin: 0 0 5px 1px;
+
+      font-size: 10px;
+      font-weight: 600;
+
+      color: var(--text-secondary);
     }
 
-    .control-row {
-      display: grid;
-      grid-template-columns: 38px 1fr;
-      gap: 8px;
+
+    .color-control {
+      width: 100%;
+      height: 36px;
+
+      display: flex;
       align-items: center;
+
+      padding: 4px;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: var(--input-bg);
+
+      transition:
+        border-color 0.12s ease,
+        box-shadow 0.12s ease;
     }
 
-    .color-swatch {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1px solid var(--border-strong);
-      overflow: hidden;
-      background: #fff;
+
+    .color-control:focus-within {
+      border-color: var(--accent);
+
+      box-shadow:
+        0 0 0 1px var(--accent);
     }
+
+
+    /*
+      실제 color input은 투명하게 덮고,
+      UI에는 커스텀 swatch만 노출
+    */
+
+    .swatch-wrapper {
+      width: 27px;
+      height: 27px;
+
+      flex: 0 0 27px;
+
+      position: relative;
+
+      border-radius: 6px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+    }
+
+
+    .swatch-preview {
+      position: absolute;
+
+      inset: 3px;
+
+      border-radius: 4px;
+
+      background: #000000;
+
+      pointer-events: none;
+    }
+
 
     .color-picker {
+      position: absolute;
+
+      inset: 0;
+
       width: 100%;
       height: 100%;
-      border: none;
-      padding: 0;
-      background: transparent;
+
+      opacity: 0;
+
       cursor: pointer;
     }
 
-    .hex-field {
-      display: flex;
-      align-items: center;
-      height: 38px;
-      border: 1px solid var(--border-strong);
-      border-radius: 10px;
-      background: white;
-      overflow: hidden;
-    }
 
     .hex-prefix {
-      width: 34px;
-      text-align: center;
-      color: var(--subtext);
-      font-weight: 700;
+      margin-left: 9px;
+
+      color: var(--text-tertiary);
+
       font-size: 12px;
-      border-right: 1px solid var(--border);
-      background: #fafafa;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-weight: 600;
+
+      user-select: none;
     }
+
 
     .hex-input {
+      min-width: 0;
       flex: 1;
-      height: 100%;
-      border: none;
-      outline: none;
+
+      height: 26px;
+
+      border: 0;
+      outline: 0;
+
+      padding: 0 8px 0 4px;
+
       background: transparent;
-      padding: 0 12px;
-      font-size: 13px;
-      font-family:
-        ui-monospace,
-        SFMono-Regular,
-        Menlo,
-        Monaco,
-        Consolas,
-        monospace;
-      text-transform: uppercase;
+
       color: var(--text);
-    }
 
-    .swap-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #9ca3af;
-      font-size: 16px;
-      margin: 2px 0 10px;
-    }
-
-    .action-btn {
-      width: 100%;
-      height: 40px;
-      border: none;
-      border-radius: 11px;
-      background: var(--brand);
-      color: white;
       font-size: 12px;
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       ARROW
+       ========================================================= */
+
+    .conversion-arrow {
+      height: 17px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin: -2px 0 2px;
+
+      color: var(--text-tertiary);
+    }
+
+
+    .conversion-arrow svg {
+      width: 13px;
+      height: 13px;
+    }
+
+
+    /* =========================================================
+       BUTTON
+       ========================================================= */
+
+    .primary-button {
+      width: 100%;
+      height: 34px;
+
+      border: 0;
+      border-radius: 8px;
+
+      margin-top: 3px;
+
+      background: var(--accent);
+      color: #ffffff;
+
+      font-size: 11px;
       font-weight: 700;
+
       cursor: pointer;
-      transition: background 0.16s ease, transform 0.06s ease;
-      margin-top: 2px;
+
+      transition:
+        background 0.12s ease,
+        transform 0.06s ease;
     }
 
-    .action-btn:hover {
-      background: var(--brand-hover);
+
+    .primary-button:hover {
+      background: var(--accent-hover);
     }
 
-    .action-btn:active {
+
+    .primary-button:active {
       transform: translateY(1px);
     }
 
-    .note {
-      margin-top: 10px;
-      font-size: 10px;
-      line-height: 1.5;
-      color: var(--subtext);
-    }
 
-    .status-wrap {
-      margin-top: auto;
-      padding: 0 14px 14px;
-    }
+    /* =========================================================
+       STATUS
+       ========================================================= */
 
     .status {
-      min-height: 52px;
-      padding: 12px 13px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--subtext);
-      line-height: 1.45;
-      font-size: 11px;
-      box-shadow: var(--shadow);
+      min-height: 31px;
+
+      margin-top: 9px;
+
+      padding: 7px 9px;
+
+      border-radius: 7px;
+
+      background: var(--bg-secondary);
+
+      color: var(--text-secondary);
+
+      font-size: 10px;
+      line-height: 1.4;
+
       display: flex;
       align-items: center;
     }
 
+
     .status.success {
+      background: var(--success-bg);
       color: var(--success);
-      border-color: rgba(31, 157, 98, 0.22);
-      background: #f2fbf7;
     }
+
 
     .status.error {
-      color: var(--danger);
-      border-color: rgba(209, 67, 67, 0.22);
-      background: #fdf3f3;
+      background: var(--error-bg);
+      color: var(--error);
     }
 
-    .footer-tools {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 10px;
-    }
 
-    .ghost-btn {
-      flex: 1;
-      height: 34px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: white;
-      color: #4b5563;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    /* =========================================================
+       TIP
+       ========================================================= */
 
-    .ghost-btn:hover {
-      background: #f9fafb;
+    .tip {
+      margin-top: 7px;
+
+      color: var(--text-tertiary);
+
+      font-size: 9px;
+      line-height: 1.4;
     }
   </style>
 </head>
-<body>
-  <div class="app">
 
-    <div class="header">
-      <div class="header-top">
-        <div class="brand">
-          <div class="brand-badge">C</div>
-          <div class="brand-text-wrap">
-            <div class="brand-title">Color Switcher</div>
-            <div class="brand-subtitle">Text / Shape color batch changer</div>
-          </div>
-        </div>
-        <button class="close-btn" id="closeButton" title="닫기">×</button>
-      </div>
+
+<body data-theme="light">
+
+<div class="app">
+
+  <!-- =======================================================
+       TOP
+       ======================================================= -->
+
+  <div class="topbar">
+
+    <div class="title">
+      Color Switcher
     </div>
 
-    <div class="content">
-      <div class="stats">
-        <div class="stat-card">
-          <div class="stat-value" id="selectedCount">0</div>
-          <div class="stat-label">SELECTED</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="textCount">0</div>
-          <div class="stat-label">TEXT</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="shapeCount">0</div>
-          <div class="stat-label">FILLS</div>
-        </div>
+
+    <button
+      id="settingsButton"
+      class="settings-button"
+      aria-label="Settings"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <circle cx="12" cy="12" r="3"></circle>
+
+        <path
+          d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.06.06-2.12 2.12-.06-.06a1.8 1.8 0 0 0-1.98-.36 1.8 1.8 0 0 0-1.1 1.65V20.5h-3v-.11a1.8 1.8 0 0 0-1.1-1.65 1.8 1.8 0 0 0-1.98.36l-.06.06-2.12-2.12.06-.06A1.8 1.8 0 0 0 6.6 15a1.8 1.8 0 0 0-1.65-1.1H4.5v-3h.45A1.8 1.8 0 0 0 6.6 9.8a1.8 1.8 0 0 0-.36-1.98l-.06-.06 2.12-2.12.06.06a1.8 1.8 0 0 0 1.98.36 1.8 1.8 0 0 0 1.1-1.65V4.5h3v.11a1.8 1.8 0 0 0 1.1 1.65 1.8 1.8 0 0 0 1.98-.36l.06-.06 2.12 2.12-.06.06a1.8 1.8 0 0 0-.36 1.98 1.8 1.8 0 0 0 1.65 1.1h.45v3h-.45A1.8 1.8 0 0 0 19.4 15Z"
+        />
+      </svg>
+    </button>
+
+
+    <!-- SETTINGS -->
+
+    <div
+      id="settingsPopover"
+      class="settings-popover"
+    >
+
+      <div
+        class="settings-title"
+        data-i18n="settings"
+      >
+        설정
       </div>
 
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="textPanel">Text</button>
-        <button class="tab-btn" data-tab="shapePanel">Shapes</button>
+
+      <div class="settings-row">
+
+        <span
+          class="settings-label"
+          data-i18n="language"
+        >
+          언어
+        </span>
+
+
+        <div class="mini-segment">
+
+          <button
+            class="mini-option active"
+            data-language="ko"
+          >
+            한
+          </button>
+
+          <button
+            class="mini-option"
+            data-language="en"
+          >
+            EN
+          </button>
+
+        </div>
+
       </div>
 
-      <!-- TEXT PANEL -->
-      <div class="panel active" id="textPanel">
-        <div class="panel-title">Text color switch</div>
-        <div class="panel-desc">
-          선택한 영역 안의 모든 텍스트를 하나의 HEX 색상으로 통일합니다.
+
+      <div class="settings-row">
+
+        <span
+          class="settings-label"
+          data-i18n="theme"
+        >
+          테마
+        </span>
+
+
+        <div class="mini-segment">
+
+          <button
+            class="mini-option active"
+            data-theme-value="light"
+            data-i18n="light"
+          >
+            라이트
+          </button>
+
+          <button
+            class="mini-option"
+            data-theme-value="dark"
+            data-i18n="dark"
+          >
+            다크
+          </button>
+
         </div>
 
-        <div class="section">
-          <label class="label">Target Color</label>
-          <div class="control-row">
-            <div class="color-swatch">
-              <input
-                id="textColorPicker"
-                class="color-picker"
-                type="color"
-                value="#000000"
-              />
-            </div>
-
-            <div class="hex-field">
-              <div class="hex-prefix">#</div>
-              <input
-                id="textHex"
-                class="hex-input"
-                type="text"
-                maxlength="6"
-                value="000000"
-                spellcheck="false"
-              />
-            </div>
-          </div>
-        </div>
-
-        <button class="action-btn" id="applyTextButton">
-          Apply text color
-        </button>
-
-        <div class="note">
-          선택한 Frame / Group / Instance 내부의 모든 Text Layer를 대상으로 동작합니다.
-        </div>
       </div>
 
-      <!-- SHAPE PANEL -->
-      <div class="panel" id="shapePanel">
-        <div class="panel-title">Shape color switch</div>
-        <div class="panel-desc">
-          특정 Fill 색상을 가진 레이어만 찾아 원하는 색상으로 일괄 변경합니다.
-        </div>
-
-        <div class="section">
-          <label class="label">Find Color</label>
-          <div class="control-row">
-            <div class="color-swatch">
-              <input
-                id="shapeSourcePicker"
-                class="color-picker"
-                type="color"
-                value="#0500FF"
-              />
-            </div>
-
-            <div class="hex-field">
-              <div class="hex-prefix">#</div>
-              <input
-                id="shapeSourceHex"
-                class="hex-input"
-                type="text"
-                maxlength="6"
-                value="0500FF"
-                spellcheck="false"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="swap-arrow">↓</div>
-
-        <div class="section">
-          <label class="label">Replace With</label>
-          <div class="control-row">
-            <div class="color-swatch">
-              <input
-                id="shapeTargetPicker"
-                class="color-picker"
-                type="color"
-                value="#000000"
-              />
-            </div>
-
-            <div class="hex-field">
-              <div class="hex-prefix">#</div>
-              <input
-                id="shapeTargetHex"
-                class="hex-input"
-                type="text"
-                maxlength="6"
-                value="000000"
-                spellcheck="false"
-              />
-            </div>
-          </div>
-        </div>
-
-        <button class="action-btn" id="applyShapeButton">
-          Apply shape color
-        </button>
-
-        <div class="note">
-          Fill을 가진 레이어를 대상으로 하며, 원본 색상과 정확히 일치하는 Solid Fill만 변경합니다.
-        </div>
-      </div>
-    </div>
-
-    <div class="status-wrap">
-      <div id="status" class="status">
-        변경할 레이어 또는 화면을 선택해주세요.
-      </div>
-
-      <div class="footer-tools">
-        <button class="ghost-btn" id="refreshButton">Refresh selection</button>
-        <button class="ghost-btn" id="closeFooterButton">Close</button>
-      </div>
     </div>
 
   </div>
 
-  <script>
-    const textHex = document.getElementById("textHex");
-    const textColorPicker = document.getElementById("textColorPicker");
 
-    const shapeSourceHex = document.getElementById("shapeSourceHex");
-    const shapeSourcePicker = document.getElementById("shapeSourcePicker");
+  <!-- =======================================================
+       SUMMARY
+       ======================================================= -->
 
-    const shapeTargetHex = document.getElementById("shapeTargetHex");
-    const shapeTargetPicker = document.getElementById("shapeTargetPicker");
+  <div class="selection-summary">
 
-    const selectedCount = document.getElementById("selectedCount");
-    const textCount = document.getElementById("textCount");
-    const shapeCount = document.getElementById("shapeCount");
+    <div class="summary-item">
+      <span data-i18n="selected">선택</span>
+      <span
+        id="selectedCount"
+        class="summary-value"
+      >
+        0
+      </span>
+    </div>
 
-    const status = document.getElementById("status");
 
-    function normalizeInput(input) {
-      let value = input.value
+    <div class="summary-divider"></div>
+
+
+    <div class="summary-item">
+      <span>Text</span>
+      <span
+        id="textCount"
+        class="summary-value"
+      >
+        0
+      </span>
+    </div>
+
+
+    <div class="summary-divider"></div>
+
+
+    <div class="summary-item">
+      <span>Fill</span>
+      <span
+        id="shapeCount"
+        class="summary-value"
+      >
+        0
+      </span>
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       TABS
+       ======================================================= -->
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      data-tab="textPanel"
+    >
+      Text
+    </button>
+
+    <button
+      class="tab"
+      data-tab="shapePanel"
+    >
+      Shapes
+    </button>
+
+  </div>
+
+
+  <!-- =======================================================
+       TEXT
+       ======================================================= -->
+
+  <div
+    id="textPanel"
+    class="panel active"
+  >
+
+    <div class="panel-header">
+
+      <div
+        class="panel-title"
+        data-i18n="textTitle"
+      >
+        텍스트 색상 변경
+      </div>
+
+      <div
+        class="panel-description"
+        data-i18n="textDescription"
+      >
+        선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.
+      </div>
+
+    </div>
+
+
+    <div class="field-group">
+
+      <label
+        class="field-label"
+        data-i18n="targetColor"
+      >
+        변경 색상
+      </label>
+
+
+      <div class="color-control">
+
+        <div class="swatch-wrapper">
+
+          <div
+            id="textSwatch"
+            class="swatch-preview"
+          ></div>
+
+          <input
+            id="textColorPicker"
+            class="color-picker"
+            type="color"
+            value="#000000"
+          />
+
+        </div>
+
+
+        <span class="hex-prefix">
+          #
+        </span>
+
+
+        <input
+          id="textHex"
+          class="hex-input"
+          maxlength="6"
+          value="000000"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <button
+      id="applyTextButton"
+      class="primary-button"
+      data-i18n="applyText"
+    >
+      텍스트 색상 변경
+    </button>
+
+
+    <div
+      class="tip"
+      data-i18n="textTip"
+    >
+      선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       SHAPE
+       ======================================================= -->
+
+  <div
+    id="shapePanel"
+    class="panel"
+  >
+
+    <div class="panel-header">
+
+      <div
+        class="panel-title"
+        data-i18n="shapeTitle"
+      >
+        도형 색상 변경
+      </div>
+
+      <div
+        class="panel-description"
+        data-i18n="shapeDescription"
+      >
+        특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.
+      </div>
+
+    </div>
+
+
+    <!-- FIND -->
+
+    <div class="field-group">
+
+      <label
+        class="field-label"
+        data-i18n="findColor"
+      >
+        찾을 색상
+      </label>
+
+
+      <div class="color-control">
+
+        <div class="swatch-wrapper">
+
+          <div
+            id="sourceSwatch"
+            class="swatch-preview"
+          ></div>
+
+          <input
+            id="shapeSourcePicker"
+            class="color-picker"
+            type="color"
+            value="#0500FF"
+          />
+
+        </div>
+
+
+        <span class="hex-prefix">
+          #
+        </span>
+
+
+        <input
+          id="shapeSourceHex"
+          class="hex-input"
+          maxlength="6"
+          value="0500FF"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <div class="conversion-arrow">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 5v14"></path>
+        <path d="m7 14 5 5 5-5"></path>
+      </svg>
+
+    </div>
+
+
+    <!-- REPLACE -->
+
+    <div class="field-group">
+
+      <label
+        class="field-label"
+        data-i18n="replaceColor"
+      >
+        변경 색상
+      </label>
+
+
+      <div class="color-control">
+
+        <div class="swatch-wrapper">
+
+          <div
+            id="targetSwatch"
+            class="swatch-preview"
+          ></div>
+
+          <input
+            id="shapeTargetPicker"
+            class="color-picker"
+            type="color"
+            value="#000000"
+          />
+
+        </div>
+
+
+        <span class="hex-prefix">
+          #
+        </span>
+
+
+        <input
+          id="shapeTargetHex"
+          class="hex-input"
+          maxlength="6"
+          value="000000"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <button
+      id="applyShapeButton"
+      class="primary-button"
+      data-i18n="applyShape"
+    >
+      도형 색상 변경
+    </button>
+
+
+    <div
+      class="tip"
+      data-i18n="shapeTip"
+    >
+      원본 색상과 일치하는 Solid Fill만 변경됩니다.
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       STATUS
+       ======================================================= -->
+
+  <div
+    id="status"
+    class="status"
+    data-i18n="defaultStatus"
+  >
+    변경할 영역을 선택해주세요.
+  </div>
+
+</div>
+
+
+<script>
+
+  // =========================================================
+  // ELEMENTS
+  // =========================================================
+
+  const textHex =
+    document.getElementById("textHex");
+
+  const textColorPicker =
+    document.getElementById("textColorPicker");
+
+  const textSwatch =
+    document.getElementById("textSwatch");
+
+
+  const shapeSourceHex =
+    document.getElementById("shapeSourceHex");
+
+  const shapeSourcePicker =
+    document.getElementById("shapeSourcePicker");
+
+  const sourceSwatch =
+    document.getElementById("sourceSwatch");
+
+
+  const shapeTargetHex =
+    document.getElementById("shapeTargetHex");
+
+  const shapeTargetPicker =
+    document.getElementById("shapeTargetPicker");
+
+  const targetSwatch =
+    document.getElementById("targetSwatch");
+
+
+  const selectedCount =
+    document.getElementById("selectedCount");
+
+  const textCount =
+    document.getElementById("textCount");
+
+  const shapeCount =
+    document.getElementById("shapeCount");
+
+  const status =
+    document.getElementById("status");
+
+
+  // =========================================================
+  // LANGUAGE
+  // =========================================================
+
+  let currentLanguage = "ko";
+
+
+  const translations = {
+
+    ko: {
+      settings: "설정",
+      language: "언어",
+      theme: "테마",
+      light: "라이트",
+      dark: "다크",
+
+      selected: "선택",
+
+      textTitle: "텍스트 색상 변경",
+      textDescription:
+        "선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.",
+
+      targetColor: "변경 색상",
+
+      applyText: "텍스트 색상 변경",
+
+      textTip:
+        "선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.",
+
+
+      shapeTitle: "도형 색상 변경",
+
+      shapeDescription:
+        "특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.",
+
+      findColor: "찾을 색상",
+
+      replaceColor: "변경 색상",
+
+      applyShape: "도형 색상 변경",
+
+      shapeTip:
+        "원본 색상과 일치하는 Solid Fill만 변경됩니다.",
+
+      defaultStatus:
+        "변경할 영역을 선택해주세요."
+    },
+
+
+    en: {
+      settings: "Settings",
+      language: "Language",
+      theme: "Theme",
+      light: "Light",
+      dark: "Dark",
+
+      selected: "Selected",
+
+      textTitle: "Text color",
+
+      textDescription:
+        "Change all text colors in the selected area.",
+
+      targetColor: "Target color",
+
+      applyText: "Apply text color",
+
+      textTip:
+        "Text layers inside Frames, Groups and Instances are included.",
+
+
+      shapeTitle: "Shape color",
+
+      shapeDescription:
+        "Find a specific Fill color and replace it.",
+
+      findColor: "Find color",
+
+      replaceColor: "Replace with",
+
+      applyShape: "Apply shape color",
+
+      shapeTip:
+        "Only matching Solid Fills will be replaced.",
+
+      defaultStatus:
+        "Select the area you want to modify."
+    }
+
+  };
+
+
+  function changeLanguage(language) {
+
+    currentLanguage = language;
+
+    document
+      .querySelectorAll("[data-i18n]")
+      .forEach((element) => {
+
+        const key =
+          element.dataset.i18n;
+
+        if (
+          translations[language][key]
+        ) {
+          element.textContent =
+            translations[language][key];
+        }
+
+      });
+
+
+    document
+      .querySelectorAll("[data-language]")
+      .forEach((button) => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.language === language
+        );
+
+      });
+  }
+
+
+  // =========================================================
+  // THEME
+  // =========================================================
+
+  function changeTheme(theme) {
+
+    document.body.dataset.theme =
+      theme;
+
+
+    document
+      .querySelectorAll("[data-theme-value]")
+      .forEach((button) => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.themeValue === theme
+        );
+
+      });
+  }
+
+
+  // =========================================================
+  // SETTINGS
+  // =========================================================
+
+  const settingsButton =
+    document.getElementById(
+      "settingsButton"
+    );
+
+  const settingsPopover =
+    document.getElementById(
+      "settingsPopover"
+    );
+
+
+  settingsButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      settingsPopover
+        .classList
+        .toggle("open");
+
+    }
+  );
+
+
+  settingsPopover.addEventListener(
+    "click",
+    (event) => {
+      event.stopPropagation();
+    }
+  );
+
+
+  document.addEventListener(
+    "click",
+    () => {
+
+      settingsPopover
+        .classList
+        .remove("open");
+
+    }
+  );
+
+
+  document
+    .querySelectorAll("[data-language]")
+    .forEach((button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          changeLanguage(
+            button.dataset.language
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll("[data-theme-value]")
+    .forEach((button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          changeTheme(
+            button.dataset.themeValue
+          );
+
+        }
+      );
+
+    });
+
+
+  // =========================================================
+  // HEX
+  // =========================================================
+
+  function normalizeInput(input) {
+
+    let value =
+      input.value
         .replace("#", "")
-        .replace(/[^0-9a-fA-F]/g, "")
+        .replace(
+          /[^0-9a-fA-F]/g,
+          ""
+        )
         .substring(0, 6)
         .toUpperCase();
 
-      input.value = value;
-      return value;
+
+    input.value =
+      value;
+
+
+    return value;
+  }
+
+
+  function isValidHex(value) {
+
+    return /^[0-9A-F]{6}$/.test(
+      value
+    );
+
+  }
+
+
+  function connectColorControl(
+    hexInput,
+    picker,
+    preview
+  ) {
+
+    function applyColor(value) {
+
+      if (
+        isValidHex(value)
+      ) {
+
+        const fullColor =
+          "#" + value;
+
+        picker.value =
+          fullColor;
+
+        preview.style.background =
+          fullColor;
+      }
+
     }
 
-    function isValidHex(value) {
-      return /^[0-9A-Fa-f]{6}$/.test(value);
-    }
 
-    function connectHexAndPicker(hexInput, picker) {
-      picker.addEventListener("input", () => {
-        hexInput.value = picker.value.replace("#", "").toUpperCase();
-      });
+    picker.addEventListener(
+      "input",
+      () => {
 
-      hexInput.addEventListener("input", () => {
-        const value = normalizeInput(hexInput);
-        if (isValidHex(value)) {
-          picker.value = "#" + value;
+        const value =
+          picker.value
+            .replace("#", "")
+            .toUpperCase();
+
+        hexInput.value =
+          value;
+
+        preview.style.background =
+          picker.value;
+
+      }
+    );
+
+
+    hexInput.addEventListener(
+      "input",
+      () => {
+
+        const value =
+          normalizeInput(
+            hexInput
+          );
+
+        applyColor(value);
+
+      }
+    );
+
+
+    hexInput.addEventListener(
+      "blur",
+      () => {
+
+        const value =
+          normalizeInput(
+            hexInput
+          );
+
+        applyColor(value);
+
+      }
+    );
+
+
+    applyColor(
+      normalizeInput(
+        hexInput
+      )
+    );
+  }
+
+
+  connectColorControl(
+    textHex,
+    textColorPicker,
+    textSwatch
+  );
+
+
+  connectColorControl(
+    shapeSourceHex,
+    shapeSourcePicker,
+    sourceSwatch
+  );
+
+
+  connectColorControl(
+    shapeTargetHex,
+    shapeTargetPicker,
+    targetSwatch
+  );
+
+
+  // =========================================================
+  // TABS
+  // =========================================================
+
+  const tabButtons =
+    document.querySelectorAll(".tab");
+
+  const panels =
+    document.querySelectorAll(".panel");
+
+
+  tabButtons.forEach(
+    (button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const target =
+            button.dataset.tab;
+
+
+          tabButtons.forEach(
+            (item) => {
+
+              item.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+          panels.forEach(
+            (panel) => {
+
+              panel.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          document
+            .getElementById(target)
+            .classList.add(
+              "active"
+            );
+
         }
-      });
+      );
 
-      hexInput.addEventListener("blur", () => {
-        const value = normalizeInput(hexInput);
-        if (isValidHex(value)) {
-          picker.value = "#" + value;
+    }
+  );
+
+
+  // =========================================================
+  // STATUS
+  // =========================================================
+
+  function setStatus(
+    message,
+    type = "normal"
+  ) {
+
+    status.textContent =
+      message;
+
+    status.className =
+      "status";
+
+
+    if (
+      type === "success"
+    ) {
+
+      status.classList.add(
+        "success"
+      );
+
+    }
+
+
+    if (
+      type === "error"
+    ) {
+
+      status.classList.add(
+        "error"
+      );
+
+    }
+  }
+
+
+  // =========================================================
+  // TEXT APPLY
+  // =========================================================
+
+  document
+    .getElementById(
+      "applyTextButton"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        const targetHex =
+          normalizeInput(
+            textHex
+          );
+
+
+        if (
+          !isValidHex(
+            targetHex
+          )
+        ) {
+
+          setStatus(
+            currentLanguage === "ko"
+              ? "6자리 HEX 색상을 입력해주세요."
+              : "Enter a valid 6-digit HEX color.",
+            "error"
+          );
+
+          return;
         }
-      });
-    }
 
-    connectHexAndPicker(textHex, textColorPicker);
-    connectHexAndPicker(shapeSourceHex, shapeSourcePicker);
-    connectHexAndPicker(shapeTargetHex, shapeTargetPicker);
 
-    function setStatus(message, type = "normal") {
-      status.textContent = message;
-      status.className = "status";
+        parent.postMessage(
+          {
+            pluginMessage: {
 
-      if (type === "success") {
-        status.classList.add("success");
+              type:
+                "apply-text",
+
+              targetHex:
+                targetHex
+            }
+          },
+          "*"
+        );
+
       }
+    );
 
-      if (type === "error") {
-        status.classList.add("error");
-      }
-    }
 
-    // Tabs
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const panels = document.querySelectorAll(".panel");
+  // =========================================================
+  // SHAPE APPLY
+  // =========================================================
 
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const targetId = button.dataset.tab;
+  document
+    .getElementById(
+      "applyShapeButton"
+    )
+    .addEventListener(
+      "click",
+      () => {
 
-        tabButtons.forEach((btn) => btn.classList.remove("active"));
-        panels.forEach((panel) => panel.classList.remove("active"));
+        const sourceHex =
+          normalizeInput(
+            shapeSourceHex
+          );
 
-        button.classList.add("active");
-        document.getElementById(targetId).classList.add("active");
-      });
-    });
 
-    // Text apply
-    document.getElementById("applyTextButton").addEventListener("click", () => {
-      const targetHex = normalizeInput(textHex);
+        const targetHex =
+          normalizeInput(
+            shapeTargetHex
+          );
 
-      if (!isValidHex(targetHex)) {
-        setStatus("텍스트 색상은 6자리 HEX로 입력해주세요.", "error");
-        return;
-      }
 
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: "apply-text",
+        if (
+          !isValidHex(
+            sourceHex
+          )
+        ) {
+
+          setStatus(
+            currentLanguage === "ko"
+              ? "찾을 색상에 올바른 HEX 값을 입력해주세요."
+              : "Enter a valid HEX value for Find Color.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (
+          !isValidHex(
             targetHex
-          }
-        },
-        "*"
-      );
-    });
+          )
+        ) {
 
-    // Shape apply
-    document.getElementById("applyShapeButton").addEventListener("click", () => {
-      const sourceHex = normalizeInput(shapeSourceHex);
-      const targetHex = normalizeInput(shapeTargetHex);
+          setStatus(
+            currentLanguage === "ko"
+              ? "변경할 색상에 올바른 HEX 값을 입력해주세요."
+              : "Enter a valid HEX value for Replace With.",
+            "error"
+          );
 
-      if (!isValidHex(sourceHex)) {
-        setStatus("찾을 색상은 6자리 HEX로 입력해주세요.", "error");
+          return;
+        }
+
+
+        parent.postMessage(
+          {
+            pluginMessage: {
+
+              type:
+                "apply-shape",
+
+              sourceHex:
+                sourceHex,
+
+              targetHex:
+                targetHex
+            }
+          },
+          "*"
+        );
+
+      }
+    );
+
+
+  // =========================================================
+  // MESSAGE FROM CODE.JS
+  // =========================================================
+
+  window.onmessage =
+    (event) => {
+
+      const msg =
+        event.data.pluginMessage;
+
+
+      if (!msg) {
         return;
       }
 
-      if (!isValidHex(targetHex)) {
-        setStatus("변경할 색상은 6자리 HEX로 입력해주세요.", "error");
+
+      if (
+        msg.type ===
+        "selection-stats"
+      ) {
+
+        selectedCount.textContent =
+          msg.selectionCount;
+
+        textCount.textContent =
+          msg.textCount;
+
+        shapeCount.textContent =
+          msg.shapeCount;
+
         return;
       }
 
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: "apply-shape",
-            sourceHex,
-            targetHex
-          }
-        },
-        "*"
-      );
-    });
 
-    // Refresh
-    document.getElementById("refreshButton").addEventListener("click", () => {
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: "refresh-selection"
-          }
-        },
-        "*"
-      );
-    });
+      if (
+        msg.type ===
+        "result"
+      ) {
 
-    // Close
-    function closePlugin() {
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: "close"
-          }
-        },
-        "*"
-      );
-    }
+        setStatus(
+          msg.message,
+          msg.success
+            ? "success"
+            : "error"
+        );
 
-    document.getElementById("closeButton").addEventListener("click", closePlugin);
-    document.getElementById("closeFooterButton").addEventListener("click", closePlugin);
-
-    // Receive messages
-    window.onmessage = (event) => {
-      const msg = event.data.pluginMessage;
-      if (!msg) return;
-
-      if (msg.type === "selection-stats") {
-        selectedCount.textContent = msg.selectionCount;
-        textCount.textContent = msg.textCount;
-        shapeCount.textContent = msg.shapeCount;
-        return;
       }
 
-      if (msg.type === "result") {
-        setStatus(msg.message, msg.success ? "success" : "error");
-      }
     };
 
-    // Initial refresh
-    parent.postMessage(
-      {
-        pluginMessage: {
-          type: "refresh-selection"
-        }
-      },
-      "*"
-    );
-  </script>
+
+  // =========================================================
+  // INITIALIZE
+  // =========================================================
+
+  changeLanguage("ko");
+
+  changeTheme("light");
+
+
+  parent.postMessage(
+    {
+      pluginMessage: {
+        type:
+          "refresh-selection"
+      }
+    },
+    "*"
+  );
+
+</script>
+
 </body>
 </html>

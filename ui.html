@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      font-size: 12px;
+
+      background:
+        var(--figma-color-bg);
+
+      color:
+        var(--figma-color-text);
+    }
+
+    .header {
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .description {
+      line-height: 1.5;
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .selection-info {
+      display: flex;
+      gap: 8px;
+
+      margin-bottom: 16px;
+    }
+
+    .selection-item {
+      flex: 1;
+
+      padding: 8px 10px;
+
+      background:
+        var(--figma-color-bg-secondary);
+
+      border-radius: 6px;
+
+      text-align: center;
+    }
+
+    .selection-number {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .selection-label {
+      font-size: 10px;
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .card {
+      padding: 14px;
+
+      margin-bottom: 12px;
+
+      border:
+        1px solid
+        var(--figma-color-border);
+
+      border-radius: 8px;
+
+      background:
+        var(--figma-color-bg);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+
+      margin-bottom: 4px;
+    }
+
+    .card-description {
+      line-height: 1.45;
+
+      margin-bottom: 12px;
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .field-label {
+      display: block;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      margin-bottom: 6px;
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 10px;
+    }
+
+    .color-picker {
+      width: 34px;
+      height: 34px;
+
+      padding: 0;
+
+      border:
+        1px solid
+        var(--figma-color-border);
+
+      border-radius: 6px;
+
+      background: transparent;
+
+      cursor: pointer;
+    }
+
+    .hex-wrap {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+
+      height: 34px;
+
+      border:
+        1px solid
+        var(--figma-color-border);
+
+      border-radius: 6px;
+
+      overflow: hidden;
+
+      background:
+        var(--figma-color-bg);
+    }
+
+    .hash {
+      padding-left: 10px;
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .hex-input {
+      width: 100%;
+
+      padding: 8px 8px 8px 2px;
+
+      border: none;
+      outline: none;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+      font-size: 12px;
+
+      text-transform: uppercase;
+
+      background: transparent;
+
+      color:
+        var(--figma-color-text);
+    }
+
+    button {
+      width: 100%;
+
+      height: 36px;
+
+      border: none;
+      border-radius: 6px;
+
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      background:
+        var(--figma-color-bg-brand);
+
+      color:
+        var(--figma-color-text-onbrand);
+    }
+
+    button:hover {
+      background:
+        var(--figma-color-bg-brand-hover);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .arrow {
+      margin: 0 0 10px 42px;
+
+      font-size: 11px;
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .status {
+      min-height: 40px;
+
+      padding: 10px 12px;
+
+      border-radius: 6px;
+
+      line-height: 1.45;
+
+      background:
+        var(--figma-color-bg-secondary);
+
+      color:
+        var(--figma-color-text-secondary);
+    }
+
+    .status.success {
+      color:
+        var(--figma-color-text-success);
+    }
+
+    .status.error {
+      color:
+        var(--figma-color-text-danger);
+    }
+
+    .tip {
+      margin-top: 10px;
+
+      font-size: 10px;
+      line-height: 1.5;
+
+      color:
+        var(--figma-color-text-tertiary);
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="header">
+
+    <div class="title">
+      Color Switcher
+    </div>
+
+    <div class="description">
+      선택한 화면의 텍스트와 도형 색상을
+      빠르게 일괄 변경합니다.
+    </div>
+
+  </div>
+
+
+  <!-- Selection 정보 -->
+
+  <div class="selection-info">
+
+    <div class="selection-item">
+
+      <div
+        id="selectedCount"
+        class="selection-number"
+      >
+        0
+      </div>
+
+      <div class="selection-label">
+        선택
+      </div>
+
+    </div>
+
+
+    <div class="selection-item">
+
+      <div
+        id="textCount"
+        class="selection-number"
+      >
+        0
+      </div>
+
+      <div class="selection-label">
+        Text
+      </div>
+
+    </div>
+
+
+    <div class="selection-item">
+
+      <div
+        id="shapeCount"
+        class="selection-number"
+      >
+        0
+      </div>
+
+      <div class="selection-label">
+        Shape
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TEXT -->
+
+  <div class="card">
+
+    <div class="card-title">
+      Text Color
+    </div>
+
+    <div class="card-description">
+      선택 영역 안의 모든 텍스트를
+      지정한 색상으로 통일합니다.
+    </div>
+
+
+    <label class="field-label">
+      변경할 색상
+    </label>
+
+
+    <div class="color-row">
+
+      <input
+        id="textColorPicker"
+        class="color-picker"
+        type="color"
+        value="#000000"
+      />
+
+
+      <div class="hex-wrap">
+
+        <span class="hash">
+          #
+        </span>
+
+        <input
+          id="textHex"
+          class="hex-input"
+          type="text"
+          maxlength="6"
+          value="000000"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <button id="applyTextButton">
+      텍스트 색상 일괄 변경
+    </button>
+
+  </div>
+
+
+  <!-- SHAPE -->
+
+  <div class="card">
+
+    <div class="card-title">
+      Shape Color
+    </div>
+
+    <div class="card-description">
+      선택 영역에서 특정 Fill 색상을 가진
+      도형만 찾아 새로운 색상으로 변경합니다.
+    </div>
+
+
+    <label class="field-label">
+      찾을 색상
+    </label>
+
+
+    <div class="color-row">
+
+      <input
+        id="shapeSourcePicker"
+        class="color-picker"
+        type="color"
+        value="#FF0000"
+      />
+
+
+      <div class="hex-wrap">
+
+        <span class="hash">
+          #
+        </span>
+
+        <input
+          id="shapeSourceHex"
+          class="hex-input"
+          type="text"
+          maxlength="6"
+          value="FF0000"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <div class="arrow">
+      ↓
+    </div>
+
+
+    <label class="field-label">
+      변경할 색상
+    </label>
+
+
+    <div class="color-row">
+
+      <input
+        id="shapeTargetPicker"
+        class="color-picker"
+        type="color"
+        value="#000000"
+      />
+
+
+      <div class="hex-wrap">
+
+        <span class="hash">
+          #
+        </span>
+
+        <input
+          id="shapeTargetHex"
+          class="hex-input"
+          type="text"
+          maxlength="6"
+          value="000000"
+          spellcheck="false"
+        />
+
+      </div>
+
+    </div>
+
+
+    <button id="applyShapeButton">
+      도형 색상 일괄 변경
+    </button>
+
+
+    <div class="tip">
+      Rectangle, Ellipse, Polygon, Star,
+      Vector, Boolean의 Solid Fill만 대상으로 합니다.
+      Frame/Group 배경은 변경하지 않습니다.
+    </div>
+
+  </div>
+
+
+  <!-- 결과 -->
+
+  <div
+    id="status"
+    class="status"
+  >
+    변경할 레이어 또는 화면을 선택해주세요.
+  </div>
+
+
+<script>
+
+  // ============================================================
+  // Element
+  // ============================================================
+
+  const textHex =
+    document.getElementById("textHex");
+
+  const textColorPicker =
+    document.getElementById(
+      "textColorPicker"
+    );
+
+
+  const shapeSourceHex =
+    document.getElementById(
+      "shapeSourceHex"
+    );
+
+  const shapeSourcePicker =
+    document.getElementById(
+      "shapeSourcePicker"
+    );
+
+
+  const shapeTargetHex =
+    document.getElementById(
+      "shapeTargetHex"
+    );
+
+  const shapeTargetPicker =
+    document.getElementById(
+      "shapeTargetPicker"
+    );
+
+
+  const selectedCount =
+    document.getElementById(
+      "selectedCount"
+    );
+
+  const textCount =
+    document.getElementById(
+      "textCount"
+    );
+
+  const shapeCount =
+    document.getElementById(
+      "shapeCount"
+    );
+
+
+  const status =
+    document.getElementById(
+      "status"
+    );
+
+
+  // ============================================================
+  // HEX
+  // ============================================================
+
+  function normalizeInput(input) {
+
+    let value =
+      input.value
+        .replace("#", "")
+        .replace(
+          /[^0-9a-fA-F]/g,
+          ""
+        )
+        .substring(0, 6)
+        .toUpperCase();
+
+    input.value = value;
+
+    return value;
+  }
+
+
+  function isValidHex(value) {
+    return /^[0-9A-Fa-f]{6}$/.test(
+      value
+    );
+  }
+
+
+  function connectHexAndPicker(
+    hexInput,
+    picker
+  ) {
+
+    picker.addEventListener(
+      "input",
+      () => {
+
+        hexInput.value =
+          picker.value
+            .replace("#", "")
+            .toUpperCase();
+      }
+    );
+
+
+    hexInput.addEventListener(
+      "input",
+      () => {
+
+        const value =
+          normalizeInput(
+            hexInput
+          );
+
+        if (
+          isValidHex(value)
+        ) {
+          picker.value =
+            "#" + value;
+        }
+      }
+    );
+
+
+    hexInput.addEventListener(
+      "blur",
+      () => {
+
+        const value =
+          normalizeInput(
+            hexInput
+          );
+
+        if (
+          isValidHex(value)
+        ) {
+          picker.value =
+            "#" + value;
+        }
+      }
+    );
+  }
+
+
+  connectHexAndPicker(
+    textHex,
+    textColorPicker
+  );
+
+  connectHexAndPicker(
+    shapeSourceHex,
+    shapeSourcePicker
+  );
+
+  connectHexAndPicker(
+    shapeTargetHex,
+    shapeTargetPicker
+  );
+
+
+  // ============================================================
+  // Status
+  // ============================================================
+
+  function setStatus(
+    message,
+    type = "normal"
+  ) {
+
+    status.textContent =
+      message;
+
+    status.className =
+      "status";
+
+    if (type === "success") {
+      status.classList.add(
+        "success"
+      );
+    }
+
+    if (type === "error") {
+      status.classList.add(
+        "error"
+      );
+    }
+  }
+
+
+  // ============================================================
+  // Text Button
+  // ============================================================
+
+  document
+    .getElementById(
+      "applyTextButton"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        const targetHex =
+          normalizeInput(
+            textHex
+          );
+
+        if (
+          !isValidHex(
+            targetHex
+          )
+        ) {
+
+          setStatus(
+            "텍스트 색상은 6자리 HEX로 입력해주세요.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "apply-text",
+              targetHex
+            }
+          },
+          "*"
+        );
+      }
+    );
+
+
+  // ============================================================
+  // Shape Button
+  // ============================================================
+
+  document
+    .getElementById(
+      "applyShapeButton"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        const sourceHex =
+          normalizeInput(
+            shapeSourceHex
+          );
+
+        const targetHex =
+          normalizeInput(
+            shapeTargetHex
+          );
+
+
+        if (
+          !isValidHex(
+            sourceHex
+          )
+        ) {
+
+          setStatus(
+            "찾을 색상은 6자리 HEX로 입력해주세요.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (
+          !isValidHex(
+            targetHex
+          )
+        ) {
+
+          setStatus(
+            "변경할 색상은 6자리 HEX로 입력해주세요.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "apply-shape",
+              sourceHex,
+              targetHex
+            }
+          },
+          "*"
+        );
+      }
+    );
+
+
+  // ============================================================
+  // Plugin Message
+  // ============================================================
+
+  window.onmessage =
+    (event) => {
+
+      const msg =
+        event.data.pluginMessage;
+
+      if (!msg) {
+        return;
+      }
+
+
+      // 선택 정보
+      if (
+        msg.type ===
+        "selection-stats"
+      ) {
+
+        selectedCount.textContent =
+          msg.selectionCount;
+
+        textCount.textContent =
+          msg.textCount;
+
+        shapeCount.textContent =
+          msg.shapeCount;
+
+        return;
+      }
+
+
+      // 작업 결과
+      if (
+        msg.type === "result"
+      ) {
+
+        setStatus(
+          msg.message,
+          msg.success
+            ? "success"
+            : "error"
+        );
+      }
+    };
+
+
+  // 최초 선택 정보 요청
+  parent.postMessage(
+    {
+      pluginMessage: {
+        type:
+          "refresh-selection"
+      }
+    },
+    "*"
+  );
+
+</script>
+
+</body>
+</html>

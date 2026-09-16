@@ -1,5 +1,5 @@
 figma.showUI(__html__, {
-  width: 330,
+  width: 300,
   height: 455,
   themeColors: true,
   title: "Color Switcher"

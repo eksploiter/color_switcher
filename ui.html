@@ -4,21 +4,16 @@
   <meta charset="UTF-8" />
 
   <style>
-    /* =========================================================
-       RESET
-       ========================================================= */
-
     * {
       box-sizing: border-box;
     }
 
     html,
     body {
-      margin: 0;
-      padding: 0;
-
       width: 100%;
       height: 100%;
+      margin: 0;
+      padding: 0;
 
       font-family:
         Inter,
@@ -39,16 +34,15 @@
       color: inherit;
     }
 
-
     /* =========================================================
-       LIGHT THEME
+       LIGHT
        ========================================================= */
 
     body[data-theme="light"] {
       --bg: #ffffff;
       --surface: #ffffff;
       --surface-secondary: #f5f5f7;
-      --surface-hover: #eeeeF1;
+      --surface-hover: #eeeeef;
 
       --text: #18181b;
       --text-secondary: #71717a;
@@ -70,9 +64,8 @@
         0 8px 28px rgba(0, 0, 0, 0.11);
     }
 
-
     /* =========================================================
-       DARK THEME
+       DARK
        ========================================================= */
 
     body[data-theme="dark"] {
@@ -101,22 +94,19 @@
         0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
-
-    /* =========================================================
-       BODY
-       ========================================================= */
-
     body {
-      background: var(--bg);
-      color: var(--text);
-
       overflow: hidden;
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
 
       transition:
         background 0.15s ease,
         color 0.15s ease;
     }
-
 
     /* =========================================================
        APP
@@ -131,7 +121,6 @@
         12px;
     }
 
-
     /* =========================================================
        TOP BAR
        ========================================================= */
@@ -139,7 +128,7 @@
     .topbar {
       position: relative;
 
-      height: 26px;
+      height: 27px;
 
       display: flex;
       align-items: center;
@@ -152,17 +141,18 @@
       font-size: 15px;
       font-weight: 700;
 
+      line-height: 1;
+
       letter-spacing: -0.25px;
     }
 
-
     /* =========================================================
-       SETTINGS BUTTON
+       SETTINGS ENTRY BUTTON
        ========================================================= */
 
     .settings-button {
-      width: 27px;
-      height: 27px;
+      width: 26px;
+      height: 26px;
 
       padding: 0;
 
@@ -170,22 +160,18 @@
       align-items: center;
       justify-content: center;
 
-      border:
-        1px
-        solid
-        transparent;
-
-      border-radius: 7px;
+      border: none;
+      border-radius: 6px;
 
       background: transparent;
 
-      color: var(--text-secondary);
+      color:
+        var(--text-secondary);
 
       cursor: pointer;
 
       transition:
         background 0.12s ease,
-        border-color 0.12s ease,
         color 0.12s ease,
         transform 0.06s ease;
     }
@@ -194,9 +180,6 @@
       background:
         var(--surface-secondary);
 
-      border-color:
-        var(--border);
-
       color:
         var(--text);
     }
@@ -204,9 +187,6 @@
     .settings-button.active {
       background:
         var(--surface-secondary);
-
-      border-color:
-        var(--border);
 
       color:
         var(--text);
@@ -223,7 +203,6 @@
 
       display: block;
     }
-
 
     /* =========================================================
        SETTINGS POPOVER
@@ -242,8 +221,7 @@
       padding: 10px;
 
       border:
-        1px
-        solid
+        1px solid
         var(--border);
 
       border-radius: 10px;
@@ -286,7 +264,6 @@
 
       font-size: 10px;
     }
-
 
     /* =========================================================
        MINI SEGMENT
@@ -342,12 +319,11 @@
 
       box-shadow:
         0 1px 3px
-        rgba(0, 0, 0, 0.10);
+        rgba(0, 0, 0, 0.1);
     }
 
-
     /* =========================================================
-       SELECTION SUMMARY
+       SUMMARY
        ========================================================= */
 
     .selection-summary {
@@ -394,7 +370,6 @@
       background:
         var(--border);
     }
-
 
     /* =========================================================
        TABS
@@ -454,7 +429,6 @@
         rgba(0, 0, 0, 0.08);
     }
 
-
     /* =========================================================
        PANEL
        ========================================================= */
@@ -488,9 +462,8 @@
       line-height: 1.4;
     }
 
-
     /* =========================================================
-       FIELD
+       FIELDS
        ========================================================= */
 
     .field-group {
@@ -513,7 +486,6 @@
       font-weight: 600;
     }
 
-
     /* =========================================================
        COLOR CONTROL
        ========================================================= */
@@ -528,8 +500,7 @@
       align-items: center;
 
       border:
-        1px
-        solid
+        1px solid
         var(--border);
 
       border-radius: 8px;
@@ -556,7 +527,6 @@
         var(--accent);
     }
 
-
     /* =========================================================
        COLOR SWATCH
        ========================================================= */
@@ -575,8 +545,7 @@
       overflow: hidden;
 
       border:
-        1px
-        solid
+        1px solid
         var(--border);
 
       border-radius: 6px;
@@ -625,7 +594,6 @@
       cursor: pointer;
     }
 
-
     /* =========================================================
        HEX
        ========================================================= */
@@ -671,10 +639,8 @@
         Menlo,
         monospace;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
     }
-
 
     /* =========================================================
        ARROW
@@ -700,7 +666,6 @@
       width: 13px;
       height: 13px;
     }
-
 
     /* =========================================================
        PRIMARY BUTTON
@@ -740,7 +705,6 @@
         translateY(1px);
     }
 
-
     /* =========================================================
        TIP
        ========================================================= */
@@ -754,7 +718,6 @@
       font-size: 9px;
       line-height: 1.45;
     }
-
 
     /* =========================================================
        STATUS
@@ -799,7 +762,6 @@
       color:
         var(--error);
     }
-
   </style>
 </head>
 
@@ -808,9 +770,8 @@
 
   <div class="app">
 
-
     <!-- =====================================================
-         TOP BAR
+         TOP
          ===================================================== -->
 
     <div class="topbar">
@@ -820,7 +781,7 @@
       </div>
 
 
-      <!-- Settings -->
+      <!-- SETTINGS ENTRY -->
 
       <button
         id="settingsButton"
@@ -828,69 +789,65 @@
         aria-label="Settings"
         title="Settings"
       >
-
         <svg
           viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.9"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          aria-hidden="true"
         >
-
-          <line
-            x1="4"
-            y1="6"
-            x2="20"
-            y2="6"
-          ></line>
-
-          <circle
-            cx="9"
-            cy="6"
-            r="2.2"
+          <path
             fill="currentColor"
-            stroke="none"
-          ></circle>
+            d="
+              M19.43 12.98
+              c.04-.32.07-.65.07-.98
+              s-.03-.66-.08-.98
+              l2.11-1.65
+              a.5.5 0 0 0 .12-.64
+              l-2-3.46
+              a.5.5 0 0 0-.61-.22
+              l-2.49 1
+              a7.2 7.2 0 0 0-1.69-.98
+              L14.5 2.42
+              A.5.5 0 0 0 14 2
+              h-4
+              a.5.5 0 0 0-.49.42
+              L9.13 5.07
+              c-.61.25-1.17.59-1.69.98
+              l-2.49-1
+              a.5.5 0 0 0-.61.22
+              l-2 3.46
+              a.5.5 0 0 0 .12.64
+              l2.11 1.65
+              c-.05.32-.08.66-.08.98
+              s.03.66.08.98
+              l-2.11 1.65
+              a.5.5 0 0 0-.12.64
+              l2 3.46
+              c.12.22.38.31.61.22
+              l2.49-1
+              c.52.4 1.08.73 1.69.98
+              l.38 2.65
+              c.04.24.25.42.49.42
+              h4
+              c.24 0 .45-.18.49-.42
+              l.38-2.65
+              a7.2 7.2 0 0 0 1.69-.98
+              l2.49 1
+              c.23.09.49 0 .61-.22
+              l2-3.46
+              a.5.5 0 0 0-.12-.64
+              l-2.1-1.65
+              Z
 
-
-          <line
-            x1="4"
-            y1="12"
-            x2="20"
-            y2="12"
-          ></line>
-
-          <circle
-            cx="15"
-            cy="12"
-            r="2.2"
-            fill="currentColor"
-            stroke="none"
-          ></circle>
-
-
-          <line
-            x1="4"
-            y1="18"
-            x2="20"
-            y2="18"
-          ></line>
-
-          <circle
-            cx="11"
-            cy="18"
-            r="2.2"
-            fill="currentColor"
-            stroke="none"
-          ></circle>
-
+              M12 15.5
+              A3.5 3.5 0 1 1 12 8
+              a3.5 3.5 0 0 1 0 7.5
+              Z
+            "
+          />
         </svg>
-
       </button>
 
 
-      <!-- Settings Popover -->
+      <!-- SETTINGS POPOVER -->
 
       <div
         id="settingsPopover"
@@ -905,7 +862,7 @@
         </div>
 
 
-        <!-- Language -->
+        <!-- LANGUAGE -->
 
         <div class="settings-row">
 
@@ -926,6 +883,7 @@
               한
             </button>
 
+
             <button
               class="mini-option"
               data-language="en"
@@ -938,7 +896,7 @@
         </div>
 
 
-        <!-- Theme -->
+        <!-- THEME -->
 
         <div class="settings-row">
 
@@ -960,6 +918,7 @@
               라이트
             </button>
 
+
             <button
               class="mini-option"
               data-theme-value="dark"
@@ -978,7 +937,7 @@
 
 
     <!-- =====================================================
-         SELECTION SUMMARY
+         SUMMARY
          ===================================================== -->
 
     <div class="selection-summary">
@@ -1064,7 +1023,7 @@
 
 
     <!-- =====================================================
-         TEXT PANEL
+         TEXT
          ===================================================== -->
 
     <div
@@ -1103,9 +1062,6 @@
 
 
         <div class="color-control">
-
-
-          <!-- Color Swatch -->
 
           <div class="swatch-wrapper">
 
@@ -1164,7 +1120,7 @@
 
 
     <!-- =====================================================
-         SHAPE PANEL
+         SHAPES
          ===================================================== -->
 
     <div
@@ -1192,7 +1148,7 @@
       </div>
 
 
-      <!-- Find -->
+      <!-- SOURCE -->
 
       <div class="field-group">
 
@@ -1243,7 +1199,7 @@
       </div>
 
 
-      <!-- Arrow -->
+      <!-- ARROW -->
 
       <div class="conversion-arrow">
 
@@ -1265,7 +1221,7 @@
       </div>
 
 
-      <!-- Replace -->
+      <!-- TARGET -->
 
       <div class="field-group">
 
@@ -1360,12 +1316,10 @@
         "textHex"
       );
 
-
     const textColorPicker =
       document.getElementById(
         "textColorPicker"
       );
-
 
     const textSwatch =
       document.getElementById(
@@ -1378,12 +1332,10 @@
         "shapeSourceHex"
       );
 
-
     const shapeSourcePicker =
       document.getElementById(
         "shapeSourcePicker"
       );
-
 
     const sourceSwatch =
       document.getElementById(
@@ -1396,12 +1348,10 @@
         "shapeTargetHex"
       );
 
-
     const shapeTargetPicker =
       document.getElementById(
         "shapeTargetPicker"
       );
-
 
     const targetSwatch =
       document.getElementById(
@@ -1414,12 +1364,10 @@
         "selectedCount"
       );
 
-
     const textCount =
       document.getElementById(
         "textCount"
       );
-
 
     const shapeCount =
       document.getElementById(
@@ -1438,7 +1386,6 @@
         "settingsButton"
       );
 
-
     const settingsPopover =
       document.getElementById(
         "settingsPopover"
@@ -1446,7 +1393,7 @@
 
 
     /* =========================================================
-       TRANSLATIONS
+       TRANSLATION
        ========================================================= */
 
     const translations = {
@@ -1723,7 +1670,7 @@
 
 
     /* =========================================================
-       SETTINGS POPOVER
+       SETTINGS
        ========================================================= */
 
     settingsButton.addEventListener(
@@ -1783,10 +1730,6 @@
     );
 
 
-    /* =========================================================
-       LANGUAGE BUTTONS
-       ========================================================= */
-
     document
       .querySelectorAll(
         "[data-language]"
@@ -1808,10 +1751,6 @@
         }
       );
 
-
-    /* =========================================================
-       THEME BUTTONS
-       ========================================================= */
 
     document
       .querySelectorAll(
@@ -1836,7 +1775,7 @@
 
 
     /* =========================================================
-       HEX UTIL
+       HEX
        ========================================================= */
 
     function normalizeInput(
@@ -2121,7 +2060,7 @@
 
 
     /* =========================================================
-       APPLY TEXT
+       TEXT
        ========================================================= */
 
     document
@@ -2154,6 +2093,7 @@
 
 
             return;
+
           }
 
 
@@ -2179,7 +2119,7 @@
 
 
     /* =========================================================
-       APPLY SHAPE
+       SHAPE
        ========================================================= */
 
     document
@@ -2218,6 +2158,7 @@
 
 
             return;
+
           }
 
 
@@ -2237,6 +2178,7 @@
 
 
             return;
+
           }
 
 
@@ -2275,18 +2217,10 @@
           event.data.pluginMessage;
 
 
-        if (
-          !msg
-        ) {
-
+        if (!msg) {
           return;
-
         }
 
-
-        /* -----------------------------------------
-           Selection
-           ----------------------------------------- */
 
         if (
           msg.type ===
@@ -2310,10 +2244,6 @@
         }
 
 
-        /* -----------------------------------------
-           Result
-           ----------------------------------------- */
-
         if (
           msg.type ===
           "result"
@@ -2333,7 +2263,7 @@
 
 
     /* =========================================================
-       INITIALIZE
+       INIT
        ========================================================= */
 
     changeLanguage(

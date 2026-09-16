@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
 
   <style>
+    /* =========================================================
+       RESET
+       ========================================================= */
+
     * {
       box-sizing: border-box;
     }
@@ -12,6 +16,7 @@
     body {
       margin: 0;
       padding: 0;
+
       width: 100%;
       height: 100%;
 
@@ -25,87 +30,91 @@
       font-size: 12px;
     }
 
-
-    /* =========================================================
-       THEME
-       ========================================================= */
-
-    body[data-theme="light"] {
-      --bg: #ffffff;
-      --bg-secondary: #f7f7f8;
-      --surface: #ffffff;
-      --surface-hover: #f4f4f5;
-
-      --text: #171719;
-      --text-secondary: #73737c;
-      --text-tertiary: #9b9ba3;
-
-      --border: #e3e3e7;
-      --border-hover: #c9c9cf;
-
-      --input-bg: #ffffff;
-
-      --accent: #1877f2;
-      --accent-hover: #0969da;
-
-      --success-bg: #eef9f3;
-      --success: #18864b;
-
-      --error-bg: #fff1f1;
-      --error: #d74343;
-
-      --shadow:
-        0 4px 16px rgba(0, 0, 0, 0.08);
-    }
-
-
-    body[data-theme="dark"] {
-      --bg: #202124;
-      --bg-secondary: #292a2e;
-      --surface: #25262a;
-      --surface-hover: #303136;
-
-      --text: #f3f3f4;
-      --text-secondary: #a6a6ae;
-      --text-tertiary: #797981;
-
-      --border: #3b3c41;
-      --border-hover: #55565d;
-
-      --input-bg: #292a2e;
-
-      --accent: #3b82f6;
-      --accent-hover: #5794f8;
-
-      --success-bg: #183528;
-      --success: #66d99a;
-
-      --error-bg: #3c2426;
-      --error: #ff7b7b;
-
-      --shadow:
-        0 6px 20px rgba(0, 0, 0, 0.28);
-    }
-
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      overflow: hidden;
-      transition:
-        background 0.15s ease,
-        color 0.15s ease;
-    }
-
-
     button,
     input {
       font: inherit;
     }
 
-
     button {
       color: inherit;
+    }
+
+
+    /* =========================================================
+       LIGHT THEME
+       ========================================================= */
+
+    body[data-theme="light"] {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-secondary: #f5f5f7;
+      --surface-hover: #eeeeF1;
+
+      --text: #18181b;
+      --text-secondary: #71717a;
+      --text-tertiary: #a1a1aa;
+
+      --border: #e4e4e7;
+      --border-hover: #c8c8ce;
+
+      --accent: #1877f2;
+      --accent-hover: #0866db;
+
+      --success: #168550;
+      --success-bg: #effaf4;
+
+      --error: #d64040;
+      --error-bg: #fff1f1;
+
+      --shadow:
+        0 8px 28px rgba(0, 0, 0, 0.11);
+    }
+
+
+    /* =========================================================
+       DARK THEME
+       ========================================================= */
+
+    body[data-theme="dark"] {
+      --bg: #202124;
+      --surface: #27282c;
+      --surface-secondary: #2c2d31;
+      --surface-hover: #35363b;
+
+      --text: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --text-tertiary: #71717a;
+
+      --border: #414247;
+      --border-hover: #5a5b61;
+
+      --accent: #3b82f6;
+      --accent-hover: #5593f7;
+
+      --success: #6bdca0;
+      --success-bg: #183529;
+
+      --error: #ff7d7d;
+      --error-bg: #402426;
+
+      --shadow:
+        0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+
+    /* =========================================================
+       BODY
+       ========================================================= */
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+
+      overflow: hidden;
+
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
     }
 
 
@@ -115,67 +124,104 @@
 
     .app {
       width: 100%;
-      padding: 12px;
+
+      padding:
+        11px
+        12px
+        12px;
     }
 
 
     /* =========================================================
-       TOP
+       TOP BAR
        ========================================================= */
 
     .topbar {
-      height: 28px;
+      position: relative;
+
+      height: 26px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      margin-bottom: 9px;
-
-      position: relative;
+      margin-bottom: 8px;
     }
-
 
     .title {
       font-size: 15px;
-      line-height: 1;
       font-weight: 700;
 
-      letter-spacing: -0.2px;
+      letter-spacing: -0.25px;
     }
 
 
-    .settings-button {
-      width: 28px;
-      height: 28px;
+    /* =========================================================
+       SETTINGS BUTTON
+       ========================================================= */
 
-      border: 0;
-      border-radius: 7px;
+    .settings-button {
+      width: 27px;
+      height: 27px;
 
       padding: 0;
-
-      background: transparent;
-      color: var(--text-secondary);
-
-      cursor: pointer;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      transition: background 0.12s ease;
-    }
+      border:
+        1px
+        solid
+        transparent;
 
+      border-radius: 7px;
+
+      background: transparent;
+
+      color: var(--text-secondary);
+
+      cursor: pointer;
+
+      transition:
+        background 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease,
+        transform 0.06s ease;
+    }
 
     .settings-button:hover {
-      background: var(--bg-secondary);
-      color: var(--text);
+      background:
+        var(--surface-secondary);
+
+      border-color:
+        var(--border);
+
+      color:
+        var(--text);
     }
 
+    .settings-button.active {
+      background:
+        var(--surface-secondary);
+
+      border-color:
+        var(--border);
+
+      color:
+        var(--text);
+    }
+
+    .settings-button:active {
+      transform:
+        translateY(1px);
+    }
 
     .settings-button svg {
       width: 15px;
       height: 15px;
+
+      display: block;
     }
 
 
@@ -187,56 +233,64 @@
       display: none;
 
       position: absolute;
-      top: 33px;
+
+      top: 32px;
       right: 0;
 
-      width: 190px;
+      width: 182px;
 
       padding: 10px;
 
-      background: var(--surface);
+      border:
+        1px
+        solid
+        var(--border);
 
-      border: 1px solid var(--border);
       border-radius: 10px;
 
-      box-shadow: var(--shadow);
+      background:
+        var(--surface);
 
-      z-index: 100;
+      box-shadow:
+        var(--shadow);
+
+      z-index: 999;
     }
-
 
     .settings-popover.open {
       display: block;
     }
 
-
     .settings-title {
+      margin-bottom: 9px;
+
       font-size: 11px;
       font-weight: 700;
-
-      margin-bottom: 8px;
     }
 
-
     .settings-row {
+      min-height: 28px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      min-height: 30px;
     }
-
 
     .settings-row + .settings-row {
       margin-top: 6px;
     }
 
-
     .settings-label {
-      color: var(--text-secondary);
-      font-size: 11px;
+      color:
+        var(--text-secondary);
+
+      font-size: 10px;
     }
 
+
+    /* =========================================================
+       MINI SEGMENT
+       ========================================================= */
 
     .mini-segment {
       display: flex;
@@ -245,37 +299,50 @@
 
       border-radius: 7px;
 
-      background: var(--bg-secondary);
+      background:
+        var(--surface-secondary);
     }
 
-
     .mini-option {
+      min-width: 40px;
+      height: 23px;
+
+      padding: 0 7px;
+
       border: 0;
-
-      height: 25px;
-
-      min-width: 45px;
-
-      padding: 0 8px;
-
       border-radius: 5px;
 
       background: transparent;
-      color: var(--text-secondary);
+
+      color:
+        var(--text-secondary);
 
       font-size: 10px;
       font-weight: 600;
 
       cursor: pointer;
+
+      transition:
+        background 0.12s ease,
+        color 0.12s ease,
+        box-shadow 0.12s ease;
     }
 
+    .mini-option:hover {
+      color:
+        var(--text);
+    }
 
     .mini-option.active {
-      background: var(--surface);
-      color: var(--text);
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
 
       box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.10);
+        0 1px 3px
+        rgba(0, 0, 0, 0.10);
     }
 
 
@@ -284,45 +351,48 @@
        ========================================================= */
 
     .selection-summary {
-      height: 28px;
+      height: 27px;
+
+      padding: 0 9px;
 
       display: flex;
       align-items: center;
 
       gap: 7px;
 
-      padding: 0 9px;
-
       margin-bottom: 8px;
-
-      background: var(--bg-secondary);
 
       border-radius: 7px;
 
-      color: var(--text-secondary);
+      background:
+        var(--surface-secondary);
+
+      color:
+        var(--text-secondary);
 
       font-size: 10px;
     }
 
-
     .summary-item {
       display: flex;
-      gap: 4px;
       align-items: center;
-    }
 
+      gap: 4px;
+    }
 
     .summary-value {
-      color: var(--text);
+      color:
+        var(--text);
+
       font-weight: 700;
     }
-
 
     .summary-divider {
       width: 1px;
       height: 11px;
 
-      background: var(--border);
+      background:
+        var(--border);
     }
 
 
@@ -331,7 +401,7 @@
        ========================================================= */
 
     .tabs {
-      height: 34px;
+      height: 33px;
 
       padding: 3px;
 
@@ -339,11 +409,11 @@
 
       margin-bottom: 9px;
 
-      background: var(--bg-secondary);
-
       border-radius: 8px;
-    }
 
+      background:
+        var(--surface-secondary);
+    }
 
     .tab {
       flex: 1;
@@ -352,25 +422,36 @@
       border-radius: 6px;
 
       background: transparent;
-      color: var(--text-secondary);
 
-      cursor: pointer;
+      color:
+        var(--text-secondary);
 
       font-size: 11px;
       font-weight: 600;
 
+      cursor: pointer;
+
       transition:
         background 0.12s ease,
-        color 0.12s ease;
+        color 0.12s ease,
+        box-shadow 0.12s ease;
     }
 
+    .tab:hover {
+      color:
+        var(--text);
+    }
 
     .tab.active {
-      background: var(--surface);
-      color: var(--text);
+      background:
+        var(--surface);
+
+      color:
+        var(--text);
 
       box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.08);
+        0 1px 3px
+        rgba(0, 0, 0, 0.08);
     }
 
 
@@ -382,115 +463,149 @@
       display: none;
     }
 
-
     .panel.active {
       display: block;
     }
 
-
     .panel-header {
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
-
     .panel-title {
+      margin-bottom: 2px;
+
       font-size: 13px;
       font-weight: 700;
 
-      margin-bottom: 2px;
+      letter-spacing: -0.15px;
     }
 
-
     .panel-description {
+      color:
+        var(--text-secondary);
+
       font-size: 10px;
       line-height: 1.4;
-
-      color: var(--text-secondary);
     }
 
 
     /* =========================================================
-       COLOR FIELD
+       FIELD
        ========================================================= */
 
     .field-group {
-      margin-bottom: 9px;
+      margin-bottom: 8px;
     }
-
 
     .field-label {
       display: block;
 
-      margin: 0 0 5px 1px;
+      margin:
+        0
+        0
+        5px
+        1px;
+
+      color:
+        var(--text-secondary);
 
       font-size: 10px;
       font-weight: 600;
-
-      color: var(--text-secondary);
     }
 
+
+    /* =========================================================
+       COLOR CONTROL
+       ========================================================= */
 
     .color-control {
       width: 100%;
       height: 36px;
 
+      padding: 4px;
+
       display: flex;
       align-items: center;
 
-      padding: 4px;
+      border:
+        1px
+        solid
+        var(--border);
 
-      border: 1px solid var(--border);
       border-radius: 8px;
 
-      background: var(--input-bg);
+      background:
+        var(--surface);
 
       transition:
         border-color 0.12s ease,
         box-shadow 0.12s ease;
     }
 
+    .color-control:hover {
+      border-color:
+        var(--border-hover);
+    }
 
     .color-control:focus-within {
-      border-color: var(--accent);
+      border-color:
+        var(--accent);
 
       box-shadow:
-        0 0 0 1px var(--accent);
+        0 0 0 1px
+        var(--accent);
     }
 
 
-    /*
-      실제 color input은 투명하게 덮고,
-      UI에는 커스텀 swatch만 노출
-    */
+    /* =========================================================
+       COLOR SWATCH
+       ========================================================= */
 
     .swatch-wrapper {
+      position: relative;
+
       width: 27px;
       height: 27px;
 
-      flex: 0 0 27px;
-
-      position: relative;
-
-      border-radius: 6px;
+      flex:
+        0
+        0
+        27px;
 
       overflow: hidden;
 
-      border: 1px solid var(--border);
+      border:
+        1px
+        solid
+        var(--border);
+
+      border-radius: 6px;
+
+      background:
+        var(--surface);
+
+      cursor: pointer;
+
+      transition:
+        border-color 0.12s ease;
     }
 
+    .swatch-wrapper:hover {
+      border-color:
+        var(--border-hover);
+    }
 
     .swatch-preview {
       position: absolute;
 
       inset: 3px;
 
-      border-radius: 4px;
+      border-radius: 3px;
 
       background: #000000;
 
       pointer-events: none;
     }
-
 
     .color-picker {
       position: absolute;
@@ -500,16 +615,26 @@
       width: 100%;
       height: 100%;
 
+      margin: 0;
+      padding: 0;
+
+      border: 0;
+
       opacity: 0;
 
       cursor: pointer;
     }
 
 
+    /* =========================================================
+       HEX
+       ========================================================= */
+
     .hex-prefix {
       margin-left: 9px;
 
-      color: var(--text-tertiary);
+      color:
+        var(--text-tertiary);
 
       font-size: 12px;
       font-weight: 600;
@@ -517,21 +642,25 @@
       user-select: none;
     }
 
-
     .hex-input {
       min-width: 0;
       flex: 1;
 
       height: 26px;
 
+      padding:
+        0
+        8px
+        0
+        4px;
+
       border: 0;
       outline: 0;
 
-      padding: 0 8px 0 4px;
-
       background: transparent;
 
-      color: var(--text);
+      color:
+        var(--text);
 
       font-size: 12px;
 
@@ -539,9 +668,11 @@
         "SFMono-Regular",
         Consolas,
         "Liberation Mono",
+        Menlo,
         monospace;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
     }
 
 
@@ -552,15 +683,18 @@
     .conversion-arrow {
       height: 17px;
 
+      margin:
+        -1px
+        0
+        2px;
+
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
-      margin: -2px 0 2px;
-
-      color: var(--text-tertiary);
+      color:
+        var(--text-tertiary);
     }
-
 
     .conversion-arrow svg {
       width: 13px;
@@ -569,19 +703,21 @@
 
 
     /* =========================================================
-       BUTTON
+       PRIMARY BUTTON
        ========================================================= */
 
     .primary-button {
       width: 100%;
       height: 34px;
 
+      margin-top: 3px;
+
       border: 0;
       border-radius: 8px;
 
-      margin-top: 3px;
+      background:
+        var(--accent);
 
-      background: var(--accent);
       color: #ffffff;
 
       font-size: 11px;
@@ -594,51 +730,14 @@
         transform 0.06s ease;
     }
 
-
     .primary-button:hover {
-      background: var(--accent-hover);
+      background:
+        var(--accent-hover);
     }
-
 
     .primary-button:active {
-      transform: translateY(1px);
-    }
-
-
-    /* =========================================================
-       STATUS
-       ========================================================= */
-
-    .status {
-      min-height: 31px;
-
-      margin-top: 9px;
-
-      padding: 7px 9px;
-
-      border-radius: 7px;
-
-      background: var(--bg-secondary);
-
-      color: var(--text-secondary);
-
-      font-size: 10px;
-      line-height: 1.4;
-
-      display: flex;
-      align-items: center;
-    }
-
-
-    .status.success {
-      background: var(--success-bg);
-      color: var(--success);
-    }
-
-
-    .status.error {
-      background: var(--error-bg);
-      color: var(--error);
+      transform:
+        translateY(1px);
     }
 
 
@@ -649,1198 +748,1625 @@
     .tip {
       margin-top: 7px;
 
-      color: var(--text-tertiary);
+      color:
+        var(--text-tertiary);
 
       font-size: 9px;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       STATUS
+       ========================================================= */
+
+    .status {
+      min-height: 30px;
+
+      margin-top: 9px;
+
+      padding:
+        7px
+        9px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 7px;
+
+      background:
+        var(--surface-secondary);
+
+      color:
+        var(--text-secondary);
+
+      font-size: 10px;
       line-height: 1.4;
     }
+
+    .status.success {
+      background:
+        var(--success-bg);
+
+      color:
+        var(--success);
+    }
+
+    .status.error {
+      background:
+        var(--error-bg);
+
+      color:
+        var(--error);
+    }
+
   </style>
 </head>
 
 
 <body data-theme="light">
 
-<div class="app">
+  <div class="app">
 
-  <!-- =======================================================
-       TOP
-       ======================================================= -->
 
-  <div class="topbar">
+    <!-- =====================================================
+         TOP BAR
+         ===================================================== -->
 
-    <div class="title">
-      Color Switcher
+    <div class="topbar">
+
+      <div class="title">
+        Color Switcher
+      </div>
+
+
+      <!-- Settings -->
+
+      <button
+        id="settingsButton"
+        class="settings-button"
+        aria-label="Settings"
+        title="Settings"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <line
+            x1="4"
+            y1="6"
+            x2="20"
+            y2="6"
+          ></line>
+
+          <circle
+            cx="9"
+            cy="6"
+            r="2.2"
+            fill="currentColor"
+            stroke="none"
+          ></circle>
+
+
+          <line
+            x1="4"
+            y1="12"
+            x2="20"
+            y2="12"
+          ></line>
+
+          <circle
+            cx="15"
+            cy="12"
+            r="2.2"
+            fill="currentColor"
+            stroke="none"
+          ></circle>
+
+
+          <line
+            x1="4"
+            y1="18"
+            x2="20"
+            y2="18"
+          ></line>
+
+          <circle
+            cx="11"
+            cy="18"
+            r="2.2"
+            fill="currentColor"
+            stroke="none"
+          ></circle>
+
+        </svg>
+
+      </button>
+
+
+      <!-- Settings Popover -->
+
+      <div
+        id="settingsPopover"
+        class="settings-popover"
+      >
+
+        <div
+          class="settings-title"
+          data-i18n="settings"
+        >
+          설정
+        </div>
+
+
+        <!-- Language -->
+
+        <div class="settings-row">
+
+          <span
+            class="settings-label"
+            data-i18n="language"
+          >
+            언어
+          </span>
+
+
+          <div class="mini-segment">
+
+            <button
+              class="mini-option"
+              data-language="ko"
+            >
+              한
+            </button>
+
+            <button
+              class="mini-option"
+              data-language="en"
+            >
+              EN
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Theme -->
+
+        <div class="settings-row">
+
+          <span
+            class="settings-label"
+            data-i18n="theme"
+          >
+            테마
+          </span>
+
+
+          <div class="mini-segment">
+
+            <button
+              class="mini-option"
+              data-theme-value="light"
+              data-i18n="light"
+            >
+              라이트
+            </button>
+
+            <button
+              class="mini-option"
+              data-theme-value="dark"
+              data-i18n="dark"
+            >
+              다크
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
 
-    <button
-      id="settingsButton"
-      class="settings-button"
-      aria-label="Settings"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
+    <!-- =====================================================
+         SELECTION SUMMARY
+         ===================================================== -->
+
+    <div class="selection-summary">
+
+      <div class="summary-item">
+
+        <span data-i18n="selected">
+          선택
+        </span>
+
+        <span
+          id="selectedCount"
+          class="summary-value"
+        >
+          0
+        </span>
+
+      </div>
+
+
+      <div class="summary-divider"></div>
+
+
+      <div class="summary-item">
+
+        <span>
+          Text
+        </span>
+
+        <span
+          id="textCount"
+          class="summary-value"
+        >
+          0
+        </span>
+
+      </div>
+
+
+      <div class="summary-divider"></div>
+
+
+      <div class="summary-item">
+
+        <span>
+          Fill
+        </span>
+
+        <span
+          id="shapeCount"
+          class="summary-value"
+        >
+          0
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TABS
+         ===================================================== -->
+
+    <div class="tabs">
+
+      <button
+        class="tab active"
+        data-tab="textPanel"
       >
-        <circle cx="12" cy="12" r="3"></circle>
-
-        <path
-          d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.06.06-2.12 2.12-.06-.06a1.8 1.8 0 0 0-1.98-.36 1.8 1.8 0 0 0-1.1 1.65V20.5h-3v-.11a1.8 1.8 0 0 0-1.1-1.65 1.8 1.8 0 0 0-1.98.36l-.06.06-2.12-2.12.06-.06A1.8 1.8 0 0 0 6.6 15a1.8 1.8 0 0 0-1.65-1.1H4.5v-3h.45A1.8 1.8 0 0 0 6.6 9.8a1.8 1.8 0 0 0-.36-1.98l-.06-.06 2.12-2.12.06.06a1.8 1.8 0 0 0 1.98.36 1.8 1.8 0 0 0 1.1-1.65V4.5h3v.11a1.8 1.8 0 0 0 1.1 1.65 1.8 1.8 0 0 0 1.98-.36l.06-.06 2.12 2.12-.06.06a1.8 1.8 0 0 0-.36 1.98 1.8 1.8 0 0 0 1.65 1.1h.45v3h-.45A1.8 1.8 0 0 0 19.4 15Z"
-        />
-      </svg>
-    </button>
+        Text
+      </button>
 
 
-    <!-- SETTINGS -->
+      <button
+        class="tab"
+        data-tab="shapePanel"
+      >
+        Shapes
+      </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         TEXT PANEL
+         ===================================================== -->
 
     <div
-      id="settingsPopover"
-      class="settings-popover"
+      id="textPanel"
+      class="panel active"
     >
 
-      <div
-        class="settings-title"
-        data-i18n="settings"
-      >
-        설정
+      <div class="panel-header">
+
+        <div
+          class="panel-title"
+          data-i18n="textTitle"
+        >
+          텍스트 색상 변경
+        </div>
+
+
+        <div
+          class="panel-description"
+          data-i18n="textDescription"
+        >
+          선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.
+        </div>
+
       </div>
 
 
-      <div class="settings-row">
+      <div class="field-group">
 
-        <span
-          class="settings-label"
-          data-i18n="language"
+        <label
+          class="field-label"
+          data-i18n="targetColor"
         >
-          언어
-        </span>
+          변경 색상
+        </label>
 
 
-        <div class="mini-segment">
+        <div class="color-control">
 
-          <button
-            class="mini-option active"
-            data-language="ko"
-          >
-            한
-          </button>
 
-          <button
-            class="mini-option"
-            data-language="en"
-          >
-            EN
-          </button>
+          <!-- Color Swatch -->
+
+          <div class="swatch-wrapper">
+
+            <div
+              id="textSwatch"
+              class="swatch-preview"
+            ></div>
+
+
+            <input
+              id="textColorPicker"
+              class="color-picker"
+              type="color"
+              value="#000000"
+            />
+
+          </div>
+
+
+          <span class="hex-prefix">
+            #
+          </span>
+
+
+          <input
+            id="textHex"
+            class="hex-input"
+            type="text"
+            maxlength="6"
+            value="000000"
+            spellcheck="false"
+          />
 
         </div>
 
       </div>
 
 
-      <div class="settings-row">
-
-        <span
-          class="settings-label"
-          data-i18n="theme"
-        >
-          테마
-        </span>
-
-
-        <div class="mini-segment">
-
-          <button
-            class="mini-option active"
-            data-theme-value="light"
-            data-i18n="light"
-          >
-            라이트
-          </button>
-
-          <button
-            class="mini-option"
-            data-theme-value="dark"
-            data-i18n="dark"
-          >
-            다크
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- =======================================================
-       SUMMARY
-       ======================================================= -->
-
-  <div class="selection-summary">
-
-    <div class="summary-item">
-      <span data-i18n="selected">선택</span>
-      <span
-        id="selectedCount"
-        class="summary-value"
-      >
-        0
-      </span>
-    </div>
-
-
-    <div class="summary-divider"></div>
-
-
-    <div class="summary-item">
-      <span>Text</span>
-      <span
-        id="textCount"
-        class="summary-value"
-      >
-        0
-      </span>
-    </div>
-
-
-    <div class="summary-divider"></div>
-
-
-    <div class="summary-item">
-      <span>Fill</span>
-      <span
-        id="shapeCount"
-        class="summary-value"
-      >
-        0
-      </span>
-    </div>
-
-  </div>
-
-
-  <!-- =======================================================
-       TABS
-       ======================================================= -->
-
-  <div class="tabs">
-
-    <button
-      class="tab active"
-      data-tab="textPanel"
-    >
-      Text
-    </button>
-
-    <button
-      class="tab"
-      data-tab="shapePanel"
-    >
-      Shapes
-    </button>
-
-  </div>
-
-
-  <!-- =======================================================
-       TEXT
-       ======================================================= -->
-
-  <div
-    id="textPanel"
-    class="panel active"
-  >
-
-    <div class="panel-header">
-
-      <div
-        class="panel-title"
-        data-i18n="textTitle"
+      <button
+        id="applyTextButton"
+        class="primary-button"
+        data-i18n="applyText"
       >
         텍스트 색상 변경
-      </div>
+      </button>
+
 
       <div
-        class="panel-description"
-        data-i18n="textDescription"
+        class="tip"
+        data-i18n="textTip"
       >
-        선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.
+        선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.
       </div>
 
     </div>
 
 
-    <div class="field-group">
+    <!-- =====================================================
+         SHAPE PANEL
+         ===================================================== -->
 
-      <label
-        class="field-label"
-        data-i18n="targetColor"
-      >
-        변경 색상
-      </label>
+    <div
+      id="shapePanel"
+      class="panel"
+    >
+
+      <div class="panel-header">
+
+        <div
+          class="panel-title"
+          data-i18n="shapeTitle"
+        >
+          도형 색상 변경
+        </div>
 
 
-      <div class="color-control">
+        <div
+          class="panel-description"
+          data-i18n="shapeDescription"
+        >
+          특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.
+        </div>
 
-        <div class="swatch-wrapper">
+      </div>
 
-          <div
-            id="textSwatch"
-            class="swatch-preview"
-          ></div>
+
+      <!-- Find -->
+
+      <div class="field-group">
+
+        <label
+          class="field-label"
+          data-i18n="findColor"
+        >
+          찾을 색상
+        </label>
+
+
+        <div class="color-control">
+
+          <div class="swatch-wrapper">
+
+            <div
+              id="sourceSwatch"
+              class="swatch-preview"
+            ></div>
+
+
+            <input
+              id="shapeSourcePicker"
+              class="color-picker"
+              type="color"
+              value="#0500FF"
+            />
+
+          </div>
+
+
+          <span class="hex-prefix">
+            #
+          </span>
+
 
           <input
-            id="textColorPicker"
-            class="color-picker"
-            type="color"
-            value="#000000"
+            id="shapeSourceHex"
+            class="hex-input"
+            type="text"
+            maxlength="6"
+            value="0500FF"
+            spellcheck="false"
           />
 
         </div>
 
-
-        <span class="hex-prefix">
-          #
-        </span>
+      </div>
 
 
-        <input
-          id="textHex"
-          class="hex-input"
-          maxlength="6"
-          value="000000"
-          spellcheck="false"
-        />
+      <!-- Arrow -->
+
+      <div class="conversion-arrow">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+
+          <path d="M12 5v14"></path>
+
+          <path d="m7 14 5 5 5-5"></path>
+
+        </svg>
 
       </div>
 
-    </div>
+
+      <!-- Replace -->
+
+      <div class="field-group">
+
+        <label
+          class="field-label"
+          data-i18n="replaceColor"
+        >
+          변경 색상
+        </label>
 
 
-    <button
-      id="applyTextButton"
-      class="primary-button"
-      data-i18n="applyText"
-    >
-      텍스트 색상 변경
-    </button>
+        <div class="color-control">
+
+          <div class="swatch-wrapper">
+
+            <div
+              id="targetSwatch"
+              class="swatch-preview"
+            ></div>
 
 
-    <div
-      class="tip"
-      data-i18n="textTip"
-    >
-      선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.
-    </div>
+            <input
+              id="shapeTargetPicker"
+              class="color-picker"
+              type="color"
+              value="#000000"
+            />
 
-  </div>
+          </div>
 
 
-  <!-- =======================================================
-       SHAPE
-       ======================================================= -->
+          <span class="hex-prefix">
+            #
+          </span>
 
-  <div
-    id="shapePanel"
-    class="panel"
-  >
 
-    <div class="panel-header">
+          <input
+            id="shapeTargetHex"
+            class="hex-input"
+            type="text"
+            maxlength="6"
+            value="000000"
+            spellcheck="false"
+          />
 
-      <div
-        class="panel-title"
-        data-i18n="shapeTitle"
+        </div>
+
+      </div>
+
+
+      <button
+        id="applyShapeButton"
+        class="primary-button"
+        data-i18n="applyShape"
       >
         도형 색상 변경
-      </div>
+      </button>
+
 
       <div
-        class="panel-description"
-        data-i18n="shapeDescription"
+        class="tip"
+        data-i18n="shapeTip"
       >
-        특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.
+        원본 색상과 일치하는 Solid Fill만 변경됩니다.
       </div>
 
     </div>
 
 
-    <!-- FIND -->
-
-    <div class="field-group">
-
-      <label
-        class="field-label"
-        data-i18n="findColor"
-      >
-        찾을 색상
-      </label>
-
-
-      <div class="color-control">
-
-        <div class="swatch-wrapper">
-
-          <div
-            id="sourceSwatch"
-            class="swatch-preview"
-          ></div>
-
-          <input
-            id="shapeSourcePicker"
-            class="color-picker"
-            type="color"
-            value="#0500FF"
-          />
-
-        </div>
-
-
-        <span class="hex-prefix">
-          #
-        </span>
-
-
-        <input
-          id="shapeSourceHex"
-          class="hex-input"
-          maxlength="6"
-          value="0500FF"
-          spellcheck="false"
-        />
-
-      </div>
-
-    </div>
-
-
-    <div class="conversion-arrow">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M12 5v14"></path>
-        <path d="m7 14 5 5 5-5"></path>
-      </svg>
-
-    </div>
-
-
-    <!-- REPLACE -->
-
-    <div class="field-group">
-
-      <label
-        class="field-label"
-        data-i18n="replaceColor"
-      >
-        변경 색상
-      </label>
-
-
-      <div class="color-control">
-
-        <div class="swatch-wrapper">
-
-          <div
-            id="targetSwatch"
-            class="swatch-preview"
-          ></div>
-
-          <input
-            id="shapeTargetPicker"
-            class="color-picker"
-            type="color"
-            value="#000000"
-          />
-
-        </div>
-
-
-        <span class="hex-prefix">
-          #
-        </span>
-
-
-        <input
-          id="shapeTargetHex"
-          class="hex-input"
-          maxlength="6"
-          value="000000"
-          spellcheck="false"
-        />
-
-      </div>
-
-    </div>
-
-
-    <button
-      id="applyShapeButton"
-      class="primary-button"
-      data-i18n="applyShape"
-    >
-      도형 색상 변경
-    </button>
-
+    <!-- =====================================================
+         STATUS
+         ===================================================== -->
 
     <div
-      class="tip"
-      data-i18n="shapeTip"
+      id="status"
+      class="status"
     >
-      원본 색상과 일치하는 Solid Fill만 변경됩니다.
+      변경할 영역을 선택해주세요.
     </div>
 
   </div>
 
 
-  <!-- =======================================================
-       STATUS
-       ======================================================= -->
-
-  <div
-    id="status"
-    class="status"
-    data-i18n="defaultStatus"
-  >
-    변경할 영역을 선택해주세요.
-  </div>
-
-</div>
-
-
-<script>
-
-  // =========================================================
-  // ELEMENTS
-  // =========================================================
-
-  const textHex =
-    document.getElementById("textHex");
-
-  const textColorPicker =
-    document.getElementById("textColorPicker");
-
-  const textSwatch =
-    document.getElementById("textSwatch");
-
-
-  const shapeSourceHex =
-    document.getElementById("shapeSourceHex");
-
-  const shapeSourcePicker =
-    document.getElementById("shapeSourcePicker");
-
-  const sourceSwatch =
-    document.getElementById("sourceSwatch");
-
-
-  const shapeTargetHex =
-    document.getElementById("shapeTargetHex");
-
-  const shapeTargetPicker =
-    document.getElementById("shapeTargetPicker");
-
-  const targetSwatch =
-    document.getElementById("targetSwatch");
-
-
-  const selectedCount =
-    document.getElementById("selectedCount");
-
-  const textCount =
-    document.getElementById("textCount");
-
-  const shapeCount =
-    document.getElementById("shapeCount");
-
-  const status =
-    document.getElementById("status");
-
-
-  // =========================================================
-  // LANGUAGE
-  // =========================================================
-
-  let currentLanguage = "ko";
-
-
-  const translations = {
-
-    ko: {
-      settings: "설정",
-      language: "언어",
-      theme: "테마",
-      light: "라이트",
-      dark: "다크",
-
-      selected: "선택",
-
-      textTitle: "텍스트 색상 변경",
-      textDescription:
-        "선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.",
-
-      targetColor: "변경 색상",
-
-      applyText: "텍스트 색상 변경",
-
-      textTip:
-        "선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.",
-
-
-      shapeTitle: "도형 색상 변경",
-
-      shapeDescription:
-        "특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.",
-
-      findColor: "찾을 색상",
-
-      replaceColor: "변경 색상",
-
-      applyShape: "도형 색상 변경",
-
-      shapeTip:
-        "원본 색상과 일치하는 Solid Fill만 변경됩니다.",
-
-      defaultStatus:
-        "변경할 영역을 선택해주세요."
-    },
-
-
-    en: {
-      settings: "Settings",
-      language: "Language",
-      theme: "Theme",
-      light: "Light",
-      dark: "Dark",
-
-      selected: "Selected",
-
-      textTitle: "Text color",
-
-      textDescription:
-        "Change all text colors in the selected area.",
-
-      targetColor: "Target color",
-
-      applyText: "Apply text color",
-
-      textTip:
-        "Text layers inside Frames, Groups and Instances are included.",
-
-
-      shapeTitle: "Shape color",
-
-      shapeDescription:
-        "Find a specific Fill color and replace it.",
-
-      findColor: "Find color",
-
-      replaceColor: "Replace with",
-
-      applyShape: "Apply shape color",
-
-      shapeTip:
-        "Only matching Solid Fills will be replaced.",
-
-      defaultStatus:
-        "Select the area you want to modify."
-    }
-
-  };
-
-
-  function changeLanguage(language) {
-
-    currentLanguage = language;
-
-    document
-      .querySelectorAll("[data-i18n]")
-      .forEach((element) => {
-
-        const key =
-          element.dataset.i18n;
-
-        if (
-          translations[language][key]
-        ) {
-          element.textContent =
-            translations[language][key];
-        }
-
-      });
-
-
-    document
-      .querySelectorAll("[data-language]")
-      .forEach((button) => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.language === language
-        );
-
-      });
-  }
-
-
-  // =========================================================
-  // THEME
-  // =========================================================
-
-  function changeTheme(theme) {
-
-    document.body.dataset.theme =
-      theme;
-
-
-    document
-      .querySelectorAll("[data-theme-value]")
-      .forEach((button) => {
-
-        button.classList.toggle(
-          "active",
-          button.dataset.themeValue === theme
-        );
-
-      });
-  }
-
-
-  // =========================================================
-  // SETTINGS
-  // =========================================================
-
-  const settingsButton =
-    document.getElementById(
-      "settingsButton"
-    );
-
-  const settingsPopover =
-    document.getElementById(
-      "settingsPopover"
-    );
-
-
-  settingsButton.addEventListener(
-    "click",
-    (event) => {
-
-      event.stopPropagation();
-
-      settingsPopover
-        .classList
-        .toggle("open");
-
-    }
-  );
-
-
-  settingsPopover.addEventListener(
-    "click",
-    (event) => {
-      event.stopPropagation();
-    }
-  );
-
-
-  document.addEventListener(
-    "click",
-    () => {
-
-      settingsPopover
-        .classList
-        .remove("open");
-
-    }
-  );
-
-
-  document
-    .querySelectorAll("[data-language]")
-    .forEach((button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          changeLanguage(
-            button.dataset.language
-          );
-
-        }
+  <script>
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
+
+    const textHex =
+      document.getElementById(
+        "textHex"
       );
 
-    });
 
-
-  document
-    .querySelectorAll("[data-theme-value]")
-    .forEach((button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          changeTheme(
-            button.dataset.themeValue
-          );
-
-        }
+    const textColorPicker =
+      document.getElementById(
+        "textColorPicker"
       );
 
-    });
 
-
-  // =========================================================
-  // HEX
-  // =========================================================
-
-  function normalizeInput(input) {
-
-    let value =
-      input.value
-        .replace("#", "")
-        .replace(
-          /[^0-9a-fA-F]/g,
-          ""
-        )
-        .substring(0, 6)
-        .toUpperCase();
-
-
-    input.value =
-      value;
-
-
-    return value;
-  }
-
-
-  function isValidHex(value) {
-
-    return /^[0-9A-F]{6}$/.test(
-      value
-    );
-
-  }
-
-
-  function connectColorControl(
-    hexInput,
-    picker,
-    preview
-  ) {
-
-    function applyColor(value) {
-
-      if (
-        isValidHex(value)
-      ) {
-
-        const fullColor =
-          "#" + value;
-
-        picker.value =
-          fullColor;
-
-        preview.style.background =
-          fullColor;
-      }
-
-    }
-
-
-    picker.addEventListener(
-      "input",
-      () => {
-
-        const value =
-          picker.value
-            .replace("#", "")
-            .toUpperCase();
-
-        hexInput.value =
-          value;
-
-        preview.style.background =
-          picker.value;
-
-      }
-    );
-
-
-    hexInput.addEventListener(
-      "input",
-      () => {
-
-        const value =
-          normalizeInput(
-            hexInput
-          );
-
-        applyColor(value);
-
-      }
-    );
-
-
-    hexInput.addEventListener(
-      "blur",
-      () => {
-
-        const value =
-          normalizeInput(
-            hexInput
-          );
-
-        applyColor(value);
-
-      }
-    );
-
-
-    applyColor(
-      normalizeInput(
-        hexInput
-      )
-    );
-  }
-
-
-  connectColorControl(
-    textHex,
-    textColorPicker,
-    textSwatch
-  );
-
-
-  connectColorControl(
-    shapeSourceHex,
-    shapeSourcePicker,
-    sourceSwatch
-  );
-
-
-  connectColorControl(
-    shapeTargetHex,
-    shapeTargetPicker,
-    targetSwatch
-  );
-
-
-  // =========================================================
-  // TABS
-  // =========================================================
-
-  const tabButtons =
-    document.querySelectorAll(".tab");
-
-  const panels =
-    document.querySelectorAll(".panel");
-
-
-  tabButtons.forEach(
-    (button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const target =
-            button.dataset.tab;
-
-
-          tabButtons.forEach(
-            (item) => {
-
-              item.classList.remove(
-                "active"
-              );
-
-            }
-          );
-
-
-          panels.forEach(
-            (panel) => {
-
-              panel.classList.remove(
-                "active"
-              );
-
-            }
-          );
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          document
-            .getElementById(target)
-            .classList.add(
-              "active"
-            );
-
-        }
+    const textSwatch =
+      document.getElementById(
+        "textSwatch"
       );
 
-    }
-  );
 
-
-  // =========================================================
-  // STATUS
-  // =========================================================
-
-  function setStatus(
-    message,
-    type = "normal"
-  ) {
-
-    status.textContent =
-      message;
-
-    status.className =
-      "status";
-
-
-    if (
-      type === "success"
-    ) {
-
-      status.classList.add(
-        "success"
+    const shapeSourceHex =
+      document.getElementById(
+        "shapeSourceHex"
       );
 
-    }
 
-
-    if (
-      type === "error"
-    ) {
-
-      status.classList.add(
-        "error"
+    const shapeSourcePicker =
+      document.getElementById(
+        "shapeSourcePicker"
       );
 
-    }
-  }
+
+    const sourceSwatch =
+      document.getElementById(
+        "sourceSwatch"
+      );
 
 
-  // =========================================================
-  // TEXT APPLY
-  // =========================================================
-
-  document
-    .getElementById(
-      "applyTextButton"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        const targetHex =
-          normalizeInput(
-            textHex
-          );
+    const shapeTargetHex =
+      document.getElementById(
+        "shapeTargetHex"
+      );
 
 
-        if (
-          !isValidHex(
-            targetHex
-          )
-        ) {
-
-          setStatus(
-            currentLanguage === "ko"
-              ? "6자리 HEX 색상을 입력해주세요."
-              : "Enter a valid 6-digit HEX color.",
-            "error"
-          );
-
-          return;
-        }
+    const shapeTargetPicker =
+      document.getElementById(
+        "shapeTargetPicker"
+      );
 
 
-        parent.postMessage(
-          {
-            pluginMessage: {
-
-              type:
-                "apply-text",
-
-              targetHex:
-                targetHex
-            }
-          },
-          "*"
-        );
-
-      }
-    );
+    const targetSwatch =
+      document.getElementById(
+        "targetSwatch"
+      );
 
 
-  // =========================================================
-  // SHAPE APPLY
-  // =========================================================
-
-  document
-    .getElementById(
-      "applyShapeButton"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        const sourceHex =
-          normalizeInput(
-            shapeSourceHex
-          );
+    const selectedCount =
+      document.getElementById(
+        "selectedCount"
+      );
 
 
-        const targetHex =
-          normalizeInput(
-            shapeTargetHex
-          );
+    const textCount =
+      document.getElementById(
+        "textCount"
+      );
 
 
-        if (
-          !isValidHex(
-            sourceHex
-          )
-        ) {
-
-          setStatus(
-            currentLanguage === "ko"
-              ? "찾을 색상에 올바른 HEX 값을 입력해주세요."
-              : "Enter a valid HEX value for Find Color.",
-            "error"
-          );
-
-          return;
-        }
+    const shapeCount =
+      document.getElementById(
+        "shapeCount"
+      );
 
 
-        if (
-          !isValidHex(
-            targetHex
-          )
-        ) {
-
-          setStatus(
-            currentLanguage === "ko"
-              ? "변경할 색상에 올바른 HEX 값을 입력해주세요."
-              : "Enter a valid HEX value for Replace With.",
-            "error"
-          );
-
-          return;
-        }
+    const status =
+      document.getElementById(
+        "status"
+      );
 
 
-        parent.postMessage(
-          {
-            pluginMessage: {
-
-              type:
-                "apply-shape",
-
-              sourceHex:
-                sourceHex,
-
-              targetHex:
-                targetHex
-            }
-          },
-          "*"
-        );
-
-      }
-    );
+    const settingsButton =
+      document.getElementById(
+        "settingsButton"
+      );
 
 
-  // =========================================================
-  // MESSAGE FROM CODE.JS
-  // =========================================================
-
-  window.onmessage =
-    (event) => {
-
-      const msg =
-        event.data.pluginMessage;
+    const settingsPopover =
+      document.getElementById(
+        "settingsPopover"
+      );
 
 
-      if (!msg) {
-        return;
-      }
+    /* =========================================================
+       TRANSLATIONS
+       ========================================================= */
+
+    const translations = {
+
+      ko: {
+
+        settings:
+          "설정",
+
+        language:
+          "언어",
+
+        theme:
+          "테마",
+
+        light:
+          "라이트",
+
+        dark:
+          "다크",
+
+        selected:
+          "선택",
+
+        textTitle:
+          "텍스트 색상 변경",
+
+        textDescription:
+          "선택 영역의 모든 텍스트 색상을 한 번에 변경합니다.",
+
+        targetColor:
+          "변경 색상",
+
+        applyText:
+          "텍스트 색상 변경",
+
+        textTip:
+          "선택한 Frame / Group / Instance 내부의 Text Layer도 함께 변경됩니다.",
+
+        shapeTitle:
+          "도형 색상 변경",
+
+        shapeDescription:
+          "특정 Fill 색상을 찾아 원하는 색상으로 변경합니다.",
+
+        findColor:
+          "찾을 색상",
+
+        replaceColor:
+          "변경 색상",
+
+        applyShape:
+          "도형 색상 변경",
+
+        shapeTip:
+          "원본 색상과 일치하는 Solid Fill만 변경됩니다.",
+
+        defaultStatus:
+          "변경할 영역을 선택해주세요.",
+
+        invalidText:
+          "변경할 색상에 올바른 6자리 HEX 값을 입력해주세요.",
+
+        invalidFind:
+          "찾을 색상에 올바른 6자리 HEX 값을 입력해주세요.",
+
+        invalidReplace:
+          "변경할 색상에 올바른 6자리 HEX 값을 입력해주세요."
+      },
 
 
-      if (
-        msg.type ===
-        "selection-stats"
-      ) {
+      en: {
 
-        selectedCount.textContent =
-          msg.selectionCount;
+        settings:
+          "Settings",
 
-        textCount.textContent =
-          msg.textCount;
+        language:
+          "Language",
 
-        shapeCount.textContent =
-          msg.shapeCount;
+        theme:
+          "Theme",
 
-        return;
-      }
+        light:
+          "Light",
 
+        dark:
+          "Dark",
 
-      if (
-        msg.type ===
-        "result"
-      ) {
+        selected:
+          "Selected",
 
-        setStatus(
-          msg.message,
-          msg.success
-            ? "success"
-            : "error"
-        );
+        textTitle:
+          "Text color",
 
+        textDescription:
+          "Change all text colors in the selected area.",
+
+        targetColor:
+          "Target color",
+
+        applyText:
+          "Apply text color",
+
+        textTip:
+          "Text layers inside Frames, Groups and Instances are included.",
+
+        shapeTitle:
+          "Shape color",
+
+        shapeDescription:
+          "Find a specific Fill color and replace it.",
+
+        findColor:
+          "Find color",
+
+        replaceColor:
+          "Replace with",
+
+        applyShape:
+          "Apply shape color",
+
+        shapeTip:
+          "Only matching Solid Fills will be replaced.",
+
+        defaultStatus:
+          "Select the area you want to modify.",
+
+        invalidText:
+          "Enter a valid 6-digit HEX color.",
+
+        invalidFind:
+          "Enter a valid HEX value for Find Color.",
+
+        invalidReplace:
+          "Enter a valid HEX value for Replace With."
       }
 
     };
 
 
-  // =========================================================
-  // INITIALIZE
-  // =========================================================
+    /* =========================================================
+       LANGUAGE
+       ========================================================= */
 
-  changeLanguage("ko");
+    let currentLanguage =
+      localStorage.getItem(
+        "colorSwitcherLanguage"
+      ) || "ko";
 
-  changeTheme("light");
+
+    function changeLanguage(
+      language
+    ) {
+
+      currentLanguage =
+        language;
 
 
-  parent.postMessage(
-    {
-      pluginMessage: {
-        type:
-          "refresh-selection"
+      localStorage.setItem(
+        "colorSwitcherLanguage",
+        language
+      );
+
+
+      document.documentElement.lang =
+        language;
+
+
+      document
+        .querySelectorAll(
+          "[data-i18n]"
+        )
+        .forEach(
+          (element) => {
+
+            const key =
+              element.dataset.i18n;
+
+
+            if (
+              translations[language] &&
+              translations[language][key]
+            ) {
+
+              element.textContent =
+                translations[language][key];
+
+            }
+
+          }
+        );
+
+
+      document
+        .querySelectorAll(
+          "[data-language]"
+        )
+        .forEach(
+          (button) => {
+
+            button.classList.toggle(
+              "active",
+              button.dataset.language ===
+                language
+            );
+
+          }
+        );
+
+
+      if (
+        !status.classList.contains(
+          "success"
+        ) &&
+        !status.classList.contains(
+          "error"
+        )
+      ) {
+
+        status.textContent =
+          translations[language]
+            .defaultStatus;
+
       }
-    },
-    "*"
-  );
 
-</script>
+    }
+
+
+    /* =========================================================
+       THEME
+       ========================================================= */
+
+    let currentTheme =
+      localStorage.getItem(
+        "colorSwitcherTheme"
+      ) || "light";
+
+
+    function changeTheme(
+      theme
+    ) {
+
+      currentTheme =
+        theme;
+
+
+      document.body.dataset.theme =
+        theme;
+
+
+      localStorage.setItem(
+        "colorSwitcherTheme",
+        theme
+      );
+
+
+      document
+        .querySelectorAll(
+          "[data-theme-value]"
+        )
+        .forEach(
+          (button) => {
+
+            button.classList.toggle(
+              "active",
+              button.dataset.themeValue ===
+                theme
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       SETTINGS POPOVER
+       ========================================================= */
+
+    settingsButton.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+
+        const isOpen =
+          settingsPopover
+            .classList
+            .toggle(
+              "open"
+            );
+
+
+        settingsButton
+          .classList
+          .toggle(
+            "active",
+            isOpen
+          );
+
+      }
+    );
+
+
+    settingsPopover.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      () => {
+
+        settingsPopover
+          .classList
+          .remove(
+            "open"
+          );
+
+
+        settingsButton
+          .classList
+          .remove(
+            "active"
+          );
+
+      }
+    );
+
+
+    /* =========================================================
+       LANGUAGE BUTTONS
+       ========================================================= */
+
+    document
+      .querySelectorAll(
+        "[data-language]"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              changeLanguage(
+                button.dataset.language
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       THEME BUTTONS
+       ========================================================= */
+
+    document
+      .querySelectorAll(
+        "[data-theme-value]"
+      )
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              changeTheme(
+                button.dataset.themeValue
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       HEX UTIL
+       ========================================================= */
+
+    function normalizeInput(
+      input
+    ) {
+
+      let value =
+        input.value
+          .replace(
+            "#",
+            ""
+          )
+          .replace(
+            /[^0-9a-fA-F]/g,
+            ""
+          )
+          .substring(
+            0,
+            6
+          )
+          .toUpperCase();
+
+
+      input.value =
+        value;
+
+
+      return value;
+
+    }
+
+
+    function isValidHex(
+      value
+    ) {
+
+      return /^[0-9A-F]{6}$/.test(
+        value
+      );
+
+    }
+
+
+    /* =========================================================
+       COLOR CONTROL
+       ========================================================= */
+
+    function connectColorControl(
+      hexInput,
+      picker,
+      preview
+    ) {
+
+      function updateColor(
+        value
+      ) {
+
+        if (
+          !isValidHex(
+            value
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        const color =
+          "#" + value;
+
+
+        picker.value =
+          color;
+
+
+        preview.style.background =
+          color;
+
+      }
+
+
+      picker.addEventListener(
+        "input",
+        () => {
+
+          const value =
+            picker.value
+              .replace(
+                "#",
+                ""
+              )
+              .toUpperCase();
+
+
+          hexInput.value =
+            value;
+
+
+          preview.style.background =
+            picker.value;
+
+        }
+      );
+
+
+      hexInput.addEventListener(
+        "input",
+        () => {
+
+          const value =
+            normalizeInput(
+              hexInput
+            );
+
+
+          updateColor(
+            value
+          );
+
+        }
+      );
+
+
+      hexInput.addEventListener(
+        "blur",
+        () => {
+
+          const value =
+            normalizeInput(
+              hexInput
+            );
+
+
+          updateColor(
+            value
+          );
+
+        }
+      );
+
+
+      updateColor(
+        normalizeInput(
+          hexInput
+        )
+      );
+
+    }
+
+
+    connectColorControl(
+      textHex,
+      textColorPicker,
+      textSwatch
+    );
+
+
+    connectColorControl(
+      shapeSourceHex,
+      shapeSourcePicker,
+      sourceSwatch
+    );
+
+
+    connectColorControl(
+      shapeTargetHex,
+      shapeTargetPicker,
+      targetSwatch
+    );
+
+
+    /* =========================================================
+       TABS
+       ========================================================= */
+
+    const tabButtons =
+      document.querySelectorAll(
+        ".tab"
+      );
+
+
+    const panels =
+      document.querySelectorAll(
+        ".panel"
+      );
+
+
+    tabButtons.forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const target =
+              button.dataset.tab;
+
+
+            tabButtons.forEach(
+              (item) => {
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+            panels.forEach(
+              (panel) => {
+
+                panel.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+            button.classList.add(
+              "active"
+            );
+
+
+            document
+              .getElementById(
+                target
+              )
+              .classList
+              .add(
+                "active"
+              );
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       STATUS
+       ========================================================= */
+
+    function setStatus(
+      message,
+      type = "normal"
+    ) {
+
+      status.textContent =
+        message;
+
+
+      status.className =
+        "status";
+
+
+      if (
+        type === "success"
+      ) {
+
+        status.classList.add(
+          "success"
+        );
+
+      }
+
+
+      if (
+        type === "error"
+      ) {
+
+        status.classList.add(
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       APPLY TEXT
+       ========================================================= */
+
+    document
+      .getElementById(
+        "applyTextButton"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          const targetHex =
+            normalizeInput(
+              textHex
+            );
+
+
+          if (
+            !isValidHex(
+              targetHex
+            )
+          ) {
+
+            setStatus(
+              translations[
+                currentLanguage
+              ].invalidText,
+
+              "error"
+            );
+
+
+            return;
+          }
+
+
+          parent.postMessage(
+            {
+
+              pluginMessage: {
+
+                type:
+                  "apply-text",
+
+                targetHex:
+                  targetHex
+
+              }
+
+            },
+            "*"
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       APPLY SHAPE
+       ========================================================= */
+
+    document
+      .getElementById(
+        "applyShapeButton"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          const sourceHex =
+            normalizeInput(
+              shapeSourceHex
+            );
+
+
+          const targetHex =
+            normalizeInput(
+              shapeTargetHex
+            );
+
+
+          if (
+            !isValidHex(
+              sourceHex
+            )
+          ) {
+
+            setStatus(
+              translations[
+                currentLanguage
+              ].invalidFind,
+
+              "error"
+            );
+
+
+            return;
+          }
+
+
+          if (
+            !isValidHex(
+              targetHex
+            )
+          ) {
+
+            setStatus(
+              translations[
+                currentLanguage
+              ].invalidReplace,
+
+              "error"
+            );
+
+
+            return;
+          }
+
+
+          parent.postMessage(
+            {
+
+              pluginMessage: {
+
+                type:
+                  "apply-shape",
+
+                sourceHex:
+                  sourceHex,
+
+                targetHex:
+                  targetHex
+
+              }
+
+            },
+            "*"
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       MESSAGE FROM CODE.JS
+       ========================================================= */
+
+    window.onmessage =
+      (event) => {
+
+        const msg =
+          event.data.pluginMessage;
+
+
+        if (
+          !msg
+        ) {
+
+          return;
+
+        }
+
+
+        /* -----------------------------------------
+           Selection
+           ----------------------------------------- */
+
+        if (
+          msg.type ===
+          "selection-stats"
+        ) {
+
+          selectedCount.textContent =
+            msg.selectionCount;
+
+
+          textCount.textContent =
+            msg.textCount;
+
+
+          shapeCount.textContent =
+            msg.shapeCount;
+
+
+          return;
+
+        }
+
+
+        /* -----------------------------------------
+           Result
+           ----------------------------------------- */
+
+        if (
+          msg.type ===
+          "result"
+        ) {
+
+          setStatus(
+            msg.message,
+
+            msg.success
+              ? "success"
+              : "error"
+          );
+
+        }
+
+      };
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    changeLanguage(
+      currentLanguage
+    );
+
+
+    changeTheme(
+      currentTheme
+    );
+
+
+    status.textContent =
+      translations[
+        currentLanguage
+      ].defaultStatus;
+
+
+    parent.postMessage(
+      {
+
+        pluginMessage: {
+
+          type:
+            "refresh-selection"
+
+        }
+
+      },
+      "*"
+    );
+
+  </script>
 
 </body>
 </html>
